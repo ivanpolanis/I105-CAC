@@ -6,7 +6,7 @@ Este repositorio contiene los prácticas realizados en la materia **Concepto de 
 
 - [Práctica 1](practica1/): Introducción al procesador 8088 - Estructura básica del procesador - Programación en ensamblador
 
-Cada trabajo práctico incluye su correspondiente archivo de código fuente en ensamblador y un archivo README que explica los objetivos.
+Cada práctica incluye su correspondiente archivo de código fuente en ensamblador y un archivo README que explica los objetivos.
 
 ## Licencia
 
