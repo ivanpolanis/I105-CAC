@@ -29,22 +29,22 @@ ___
 1\. El siguiente programa utiliza una **instrucción de transferencia de datos** (instrucción MOV) con diferentes modos de direccionamiento para referenciar sus operandos. Ejecutar y analizar el funcionamiento de cada instrucción en el Simulador MSX88 observando el flujo de información a través del BUS DE DATOS, el BUS DE DIRECCIONES, el BUS DE CONTROL, el contenido de REGISTROS, de posiciones de MEMORIA, operaciones en la ALU, etc.
 
 ```x86asm
-ORG 1000H
-NUM0 DB 0CAH
-NUM1 DB 0
-NUM2 DW ?
-NUM3 DW 0ABCDH
-NUM4 DW
+      ORG 1000H
+NUM0  DB  0CAH
+NUM1  DB  0
+NUM2  DW  ?
+NUM3  DW  0ABCDH
+NUM4  DW  ?
 
-ORG 2000H
-MOV NUM2, 1234H
-MOV BX, OFFSET NUM3
-MOV DL, [BX]
-MOV AX, [BX]
-MOV BX, 1006H
-MOV WORD PTR [BX], 1006H
-HLT
-END
+      ORG 2000H
+      MOV NUM2, 1234H
+      MOV BX,   OFFSET NUM3
+      MOV DL,   [BX]
+      MOV AX,   [BX]
+      MOV BX,   1006H
+      MOV WORD PTR [BX], 1006H
+      HLT
+      END
 ```
 **Cuestionario**:
 
@@ -57,27 +57,28 @@ c. Notar que durante la ejecución de algunas instrucciones MOV aparece en la pa
 2\. El siguiente programa utiliza diferentes **instrucciones de procesamiento de datos** (instrucciones aritméticas y lógicas). Analice y ejecute el comportamiento de ellas en el MSX88.
 
 ```x86asm
-ORG 1000H
-NUM0 DB 80H
-NUM1 DB 200
-NUM2 DB -1
-BYTE0 DB 01111111B
-BYTE1 DB 10101010B
+      ORG 1000H
+NUM0  DB  80H
+NUM1  DB  200
+NUM2  DB  -1
+BYTE0 DB  01111111B
+BYTE1 DB  10101010B
 
-MOV AL, NUM0
-ADD AL, AL
-INC NUM1
-MOV BH, NUM1
-MOV BL, BH
-DEC BL
-SUB BL, BH
-MOV CH, BYTE1
-AND CH, BYTE0
-NOT BYTE0
-OR CH,BYTE0
-XOR CH, 11111111B
-HLT
-END
+    ORG 2000H
+    MOV AL, NUM0
+    ADD AL, AL
+    INC NUM1
+    MOV BH, NUM1
+    MOV BL, BH
+    DEC BL
+    SUB BL, BH
+    MOV CH, BYTE1
+    AND CH, BYTE0
+    NOT BYTE0
+    OR  CH, BYTE0
+    XOR CH, 11111111B
+    HLT
+    END
 ```
 **Cuestionario**:
 
@@ -91,18 +92,18 @@ c. Confeccionar una tabla que indique para cada operación aritmética ó lógic
 el funcionamiento de cada instrucción y en particular las del lazo repetitivo que provoca la cuenta.
 
 ```x86asm
-ORG 1000H
-INI DB 0
-FIN DB 15
+      ORG 1000H
+INI   DB  0
+FIN   DB  15
 
-ORG 2000H
-MOV AL, INI
-MOV AH, FIN
+      ORG 2000H
+      MOV AL, INI
+      MOV AH, FIN
 SUMA: INC AL
-CMP AL, AH
-JNZ SUMA
-HLT
-END
+      CMP AL, AH
+      JNZ SUMA
+      HLT
+      END
 ```
 **Cuestionario**:
 
@@ -125,22 +126,22 @@ b. A = B
 5\. El siguiente programa suma todos los elementos de una tabla almacenada a partir de la dirección 1000H de la memoria del simulador. Analice el funcionamiento y determine el resultado de la suma. Comprobar el resultado en el MSX88.
 
 ```x86asm
-ORG 1000H
-TABLA DB DUP(2,4,6,8,10,12,14,16,18,20)
-FIN
-TOTAL DB
-MAX DB 13
+      ORG 1000H
+TABLA DB  DUP(2,4,6,8,10,12,14,16,18,20)
+FIN   DB  ?
+TOTAL DB  ?
+MAX   DB  13
 
-ORG 2000H
-MOV AL, 0
-MOV CL, OFFSET FIN-OFFSET TABLA
-MOV BX, OFFSET TABLA
+      ORG 2000H
+      MOV AL, 0
+      MOV CL, OFFSET FIN-OFFSET TABLA
+      MOV BX, OFFSET TABLA
 SUMA: ADD AL, [BX]
-INC BX
-DEC CL
-JNZ SUMA
-HLT
-END
+      INC BX
+      DEC CL
+      JNZ SUMA
+      HLT
+      END
 ```
 ¿Qué modificaciones deberá hacer en el programa para que el mismo almacene el resultado de la suma en la celda etiquetada TOTAL?
 
