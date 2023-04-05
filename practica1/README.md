@@ -26,7 +26,7 @@
 
 ___
 
-1\. El siguiente programa utiliza una **instrucción de transferencia de datos** (instrucción MOV) con diferentes modos de direccionamiento para referenciar sus operandos. Ejecutar y analizar el funcionamiento de cada instrucción en el Simulador MSX88 observando el flujo de información a través del BUS DE DATOS, el BUS DE DIRECCIONES, el BUS DE CONTROL, el contenido de REGISTROS, de posiciones de MEMORIA, operaciones en la ALU, etc.
+**1\.** El siguiente programa utiliza una **instrucción de transferencia de datos** (instrucción MOV) con diferentes modos de direccionamiento para referenciar sus operandos. Ejecutar y analizar el funcionamiento de cada instrucción en el Simulador MSX88 observando el flujo de información a través del BUS DE DATOS, el BUS DE DIRECCIONES, el BUS DE CONTROL, el contenido de REGISTROS, de posiciones de MEMORIA, operaciones en la ALU, etc.
 
 ```x86asm
       ORG 1000H
@@ -48,13 +48,13 @@ NUM4  DW  ?
 ```
 **Cuestionario**:
 
-a. Explicar detalladamente qué hace cada instrucción MOV del programa anterior, en función de sus operandos y su modo de direccionamiento.
+*a.* Explicar detalladamente qué hace cada instrucción MOV del programa anterior, en función de sus operandos y su modo de direccionamiento.
 
-b. Confeccionar una tabla que contenga todas las instrucciones MOV anteriores, el modo de direccionamiento y el contenido final del operando destino de cada una de ellas.
+*b.* Confeccionar una tabla que contenga todas las instrucciones MOV anteriores, el modo de direccionamiento y el contenido final del operando destino de cada una de ellas.
 
-c. Notar que durante la ejecución de algunas instrucciones MOV aparece en la pantalla del simulador un registro temporal denominado “**ri**”, en ocasiones acompañado por otro registro temporal denominado “**id**”. Explicar con detalle que función cumplen estos registros.
+*c.* Notar que durante la ejecución de algunas instrucciones MOV aparece en la pantalla del simulador un registro temporal denominado “**ri**”, en ocasiones acompañado por otro registro temporal denominado “**id**”. Explicar con detalle que función cumplen estos registros.
 
-2\. El siguiente programa utiliza diferentes **instrucciones de procesamiento de datos** (instrucciones aritméticas y lógicas). Analice y ejecute el comportamiento de ellas en el MSX88.
+**2\.** El siguiente programa utiliza diferentes **instrucciones de procesamiento de datos** (instrucciones aritméticas y lógicas). Analice y ejecute el comportamiento de ellas en el MSX88.
 
 ```x86asm
       ORG 1000H
@@ -82,13 +82,13 @@ BYTE1 DB  10101010B
 ```
 **Cuestionario**:
 
-a. ¿Cuál es el estado de los FLAGS después de la ejecución de las instrucciones ADD y SUB del programa anterior? Justificar el estado (1 ó 0) de cada uno de ellos. ¿Dan alguna indicación acerca de la correctitud de los resultados?
+*a.* ¿Cuál es el estado de los FLAGS después de la ejecución de las instrucciones ADD y SUB del programa anterior? Justificar el estado (1 ó 0) de cada uno de ellos. ¿Dan alguna indicación acerca de la correctitud de los resultados?
 
-b. ¿Qué cadenas binarias representan a NUM1 y NUM2 en la memoria del simulador? ¿En qué sistemas binarios están expresados estos valores?
+*b.* ¿Qué cadenas binarias representan a NUM1 y NUM2 en la memoria del simulador? ¿En qué sistemas binarios están expresados estos valores?
 
-c. Confeccionar una tabla que indique para cada operación aritmética ó lógica del programa, el valor de sus operandos, en qué registro o dirección de memoria se almacenan y el resultado de cada operación.
+*c.* Confeccionar una tabla que indique para cada operación aritmética ó lógica del programa, el valor de sus operandos, en qué registro o dirección de memoria se almacenan y el resultado de cada operación.
 
-3\. El siguiente programa implementa un contador utilizando una **instrucción de transferencia de control**\. Analice
+**3\.** El siguiente programa implementa un contador utilizando una **instrucción de transferencia de control**. Analice
 el funcionamiento de cada instrucción y en particular las del lazo repetitivo que provoca la cuenta.
 
 ```x86asm
@@ -107,9 +107,9 @@ SUMA: INC AL
 ```
 **Cuestionario**:
 
-a. ¿Cuántas veces se ejecuta el lazo? ¿De qué variables depende esto en el caso general?
+*a.* ¿Cuántas veces se ejecuta el lazo? ¿De qué variables depende esto en el caso general?
 
-b. Analice y ejecute el programa reemplazando la instrucción de salto condicional JNZ por las siguientes, indicando en cada caso el contenido final del registro AL:
+*b.* Analice y ejecute el programa reemplazando la instrucción de salto condicional JNZ por las siguientes, indicando en cada caso el contenido final del registro AL:
 
 1. JS
 
@@ -117,13 +117,13 @@ b. Analice y ejecute el programa reemplazando la instrucción de salto condicion
 
 3. JMP
 
-4\. Escribir un programa en lenguaje assembly del MSX88 que implemente la sentencia condicional de un lenguaje de alto nivel IF **A** < **B** THEN **C** = **A** ELSE **C** = **B**. Considerar que las variables de la sentencia están almacenadas en los registros internos de la CPU del siguiente modo **A** en AL, **B** en BL y **C** en CL. Determine las modificaciones que debería hacer al programa si la condición de la sentencia IF fuera:
+**4\.** Escribir un programa en lenguaje assembly del MSX88 que implemente la sentencia condicional de un lenguaje de alto nivel IF **A** < **B** THEN **C** = **A** ELSE **C** = **B**. Considerar que las variables de la sentencia están almacenadas en los registros internos de la CPU del siguiente modo **A** en AL, **B** en BL y **C** en CL. Determine las modificaciones que debería hacer al programa si la condición de la sentencia IF fuera:
 
-a. A ≤ B
+*a.* A ≤ B
 
-b. A = B
+*b.* A = B
 
-5\. El siguiente programa suma todos los elementos de una tabla almacenada a partir de la dirección 1000H de la memoria del simulador. Analice el funcionamiento y determine el resultado de la suma. Comprobar el resultado en el MSX88.
+**5\.** El siguiente programa suma todos los elementos de una tabla almacenada a partir de la dirección 1000H de la memoria del simulador. Analice el funcionamiento y determine el resultado de la suma. Comprobar el resultado en el MSX88.
 
 ```x86asm
       ORG 1000H
@@ -145,9 +145,9 @@ SUMA: ADD AL, [BX]
 ```
 ¿Qué modificaciones deberá hacer en el programa para que el mismo almacene el resultado de la suma en la celda etiquetada TOTAL?
 
-6\. Escribir un programa que, utilizando las mismas variables y datos que el programa del punto anterior (TABLA, FIN, TOTAL, MAX), determine cuántos de los elementos de TABLA son menores o iguales que MAX. Dicha cantidad debe almacenarse en la celda TOTAL.
+**6\.** Escribir un programa que, utilizando las mismas variables y datos que el programa del punto anterior (TABLA, FIN, TOTAL, MAX), determine cuántos de los elementos de TABLA son menores o iguales que MAX. Dicha cantidad debe almacenarse en la celda TOTAL.
 
-7\. Multiplicación de números sin signo\. Escribir un programa que calcule el producto entre dos números sin signo almacenados en la memoria del microprocesador:
+**7\.** Multiplicación de números sin signo\. Escribir un programa que calcule el producto entre dos números sin signo almacenados en la memoria del microprocesador:
 
 1. sin hacer llamados a subrutinas, resolviendo el problema desde el programa principal;
 
@@ -157,7 +157,7 @@ SUMA: ADD AL, [BX]
 
 4. llamando a una subrutina MUL, pasando los parámetros por valor y por referencia a través de la pila.
 
-7.1; 
+**7.1**; 
 ```x86asm
       ORG 1000H
 NUM1  DB   5H
@@ -179,7 +179,7 @@ FIN:  HLT
       END
 ```
 
-7.2;
+**7.2**;
 ```x86asm
       ORG 1000H
 NUM1  DB   5H
@@ -196,7 +196,7 @@ LAZO: ADD  DX, AX
 FIN:  RET
 ```
 
-7.3;
+**7.3**;
 ````x86asm
       ORG 1000H
 NUM1  DW    5H
@@ -213,7 +213,7 @@ MUL:  MOV   BX, AX
       JNZ   MUL
       RET 
 ````
-7.4;
+**7.4**;
 ````x86asm
       ORG 1000H
 NUM1  DW    5H
@@ -280,22 +280,22 @@ SUMA: ADD   DX,AX
 
 **Explicar detalladamente**:
 
-a. Todas las acciones que tienen lugar al ejecutarse la instrucción CALL MUL.
+*a.* Todas las acciones que tienen lugar al ejecutarse la instrucción CALL MUL.
 
-b. Todas las acciones que tienen lugar al ejecutarse las instrucciones PUSH y POP.
+*b.* Todas las acciones que tienen lugar al ejecutarse las instrucciones PUSH y POP.
 
-c. ¿Qué operación se realiza con la instrucción RET?
+*c.* ¿Qué operación se realiza con la instrucción RET?
 
-8\. Escribir una subrutina ROTARIZ que haga una rotación hacia la izquierda de los bits de un byte almacenado en la memoria del microprocesador. Dicho byte y el número de posiciones a rotar deben pasarse por valor desde el programa principal a la subrutina a través de registros.
+**8\.** Escribir una subrutina ROTARIZ que haga una rotación hacia la izquierda de los bits de un byte almacenado en la memoria del microprocesador. Dicho byte y el número de posiciones a rotar deben pasarse por valor desde el programa principal a la subrutina a través de registros.
 
-9\. Escribir una subrutina CONCAR que cuente el número de caracteres de una cadena de caracteres terminada en cero (00H) almacenada en la memoria del microprocesador. La cadena se pasa a la subrutina por referencia vía registro.
+**9\.** Escribir una subrutina CONCAR que cuente el número de caracteres de una cadena de caracteres terminada en cero (00H) almacenada en la memoria del microprocesador. La cadena se pasa a la subrutina por referencia vía registro.
 
-10\. Escribir una subrutina SWAP que intercambie dos datos de 16 bits almacenados en memoria\. Los parámetros deben ser pasados por referencia desde el programa principal a través de la pila.
+**10\.** Escribir una subrutina SWAP que intercambie dos datos de 16 bits almacenados en memoria. Los parámetros deben ser pasados por referencia desde el programa principal a través de la pila.
 
-11\. Modificar la subrutina del ejercicio 9 para que cuente la cantidad de veces que se repite un dado caracter en una cadena. Además, la subrutina debe cambiar el caracter especificado por una "X". El caracter a buscar se debe pasar por valor mientras que la cadena a analizar por referencia, todo a través de registros.
+**11\.** Modificar la subrutina del ejercicio 9 para que cuente la cantidad de veces que se repite un dado caracter en una cadena. Además, la subrutina debe cambiar el caracter especificado por una "X". El caracter a buscar se debe pasar por valor mientras que la cadena a analizar por referencia, todo a través de registros.
 
-12\. Usando la subrutina ROTARIZ del ejercicio 8, escriba una subrutina ROTARDER que haga una rotación hacia la derecha de un byte almacenado en la memoria del microprocesador. Dicho byte y el número de posiciones a rotar deben pasarse por valor desde el programa principal a la subrutina a través de registros.
+**12\.** Usando la subrutina ROTARIZ del ejercicio 8, escriba una subrutina ROTARDER que haga una rotación hacia la derecha de un byte almacenado en la memoria del microprocesador. Dicho byte y el número de posiciones a rotar deben pasarse por valor desde el programa principal a la subrutina a través de registros.
 
-13\. Escriba la subrutina ES_VOCAL, que determina si un caracter es vocal o no. La rutina debe recibir el caracter por valor, y debe retornar, vía registro, el valor 0FFH si el caracter es una vocal, o 00H en caso contrario.
+**13\.** Escriba la subrutina ES_VOCAL, que determina si un caracter es vocal o no. La rutina debe recibir el caracter por valor, y debe retornar, vía registro, el valor 0FFH si el caracter es una vocal, o 00H en caso contrario.
 
-14\. Usando la subrutina del ejercicio anterior (ejercicio 13) escribir la subrutina VOCALES, que recibe una cadena por referencia, y devuelve, en un registro, la cantidad de vocales que tiene esa cadena.
+**14\.** Usando la subrutina del ejercicio anterior (ejercicio 13) escribir la subrutina VOCALES, que recibe una cadena por referencia, y devuelve, en un registro, la cantidad de vocales que tiene esa cadena.
