@@ -6,14 +6,14 @@ N_CLK     EQU   10
 IP_CLK    DW    RUT_CLK
           ORG   1000H
 SEG       DB    30H
-          DB    30H
+S1        DB    30H
 FIN       DB    ?
           ORG   3000H
 RUT_CLK:  PUSH  AX
-          INC   SEG+1
-          CMP   SEG+1, 3AH
+          INC   S1
+          CMP   S1, 3AH
           JNZ   RESET
-          MOV   SEG+1, 30H
+          MOV   S1, 30H
           INC   SEG
           CMP   SEG, 36H
           JNZ   RESET
