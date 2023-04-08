@@ -2,7 +2,8 @@
 
 ## **Interrupciones**
 
-***Objetivos:***
+**_Objetivos:_**
+
 - Comprender la utilidad de las interrupciones por software y por hardware y el funcionamiento del Controlador de Interrupciones Programable (PIC). Escribir programas en el lenguaje de ensamblado del simulador MSX88. Ejecutarlos y verificar los resultados, analizando el flujo de información entre los distintos componentes del microprocesador.
 
 **1)** Escritura de datos en la pantalla de comandos.
@@ -53,6 +54,7 @@ NUM   DB  ?
       INT 0
       END
 ```
+
 Responder brevemente:
 
 - a) Con referencia a la interrupción INT 7, ¿qué se almacena en los registros BX y AL?
