@@ -1,23 +1,23 @@
-ORG 1000H
-NUM0 DB 0CAH
-NUM1 DB 0
-NUM2 DW ?
-NUM3 DW 0ABCDH
-NUM4 DW ?
-ORG 2000H
-MOV BL, NUM0
-MOV BH, 0FFH
-MOV CH, BL
-MOV AX, BX
-MOV NUM1, AL
-MOV NUM2, 1234H
-MOV BX, OFFSET NUM3
-MOV DL, [BX]
-MOV AX, [BX]
-MOV BX, 1006H
-MOV WORD PTR [BX], 1006H
-HLT
-END
+      ORG 1000H
+NUM0  DB  0CAH
+NUM1  DB  0
+NUM2  DW  ?
+NUM3  DW  0ABCDH
+NUM4  DW  ?
+      ORG 2000H
+      MOV BL, NUM0
+      MOV BH, 0FFH
+      MOV CH, BL
+      MOV AX, BX
+      MOV NUM1, AL
+      MOV NUM2, 1234H
+      MOV BX, OFFSET NUM3
+      MOV DL, [BX]
+      MOV AX, [BX]
+      MOV BX, 1006H
+      MOV WORD PTR [BX], 1006H
+      HLT
+      END
 
 ;1a)
 ;8: El operando en este caso el el dato almacenado en NUM0, que es el numero CAh. Utiliza direccionamiento directo de memoria y copia en el registro BL el valor CAh.

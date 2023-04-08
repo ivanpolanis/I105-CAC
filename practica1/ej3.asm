@@ -1,14 +1,14 @@
-ORG 1000H
-INI DB 0
-FIN DB 15
-ORG 2000H
-MOV AL, INI
-MOV AH, FIN
+      ORG 1000H
+INI   DB  0
+FIN   DB  15
+      ORG 2000H
+      MOV AL, INI
+      MOV AH, FIN
 SUMA: INC AL
-CMP AL, AH
-JNZ SUMA
-HLT
-END
+      CMP AL, AH
+      JNZ SUMA
+      HLT
+      END
 
 ;3a)
 ;Se ejecuta 15 veces. Depende de las variables que se comparan antes de la instruccion de salto. En este caso los registros AL y AH.
