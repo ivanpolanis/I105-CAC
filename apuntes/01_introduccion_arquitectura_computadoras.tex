@@ -62,4 +62,31 @@ El funcionamiento del procesador está determinado por las instrucciones que eje
   \end{itemize}
 
   Las instrucciones \textit{aritméticas} proporcionan capacidad computacional para procesar datos numéricos. Las instrucciones \textit{lógicas} operan con los bits de una palabra en lugar considerarlos como números. Las instrucciones \textit{memoria} permiten transferir los datos entre la memoria y los registros. Las instrucciones \textit{E/S} se necesitan para transferir programas y datos a memoria y devolver resultados de los cálculos al usuario. 
+
+  \subsubsection{Número de direcciones}
+
+  Una de las formas tradicionales de describir la arquitectura de un procesador es en términos del número de direcciones contenidas en cada instrucción. Esta dimensión se va haciendo menos significativa a medida que aumenta la complejidad del diseño del procesador.
+
+  La mayoria de las instrucciones tienen una, dos o tre direcciones, estando implicita la dirección de la instrucción siguiente (obtenida a través del contador de programa)
+
+  \begin{itemize}
+    \item \textbf{Instrucciones de una dirección}: para funcionar, una segunda dirección debe estar implícita. La dirección implícita es el registro del procesador \textit{acumulador}. El acumulador contiene uno de los operandos y se emplea para almacenar el resultado.
+    \item \textbf{Instrucciones de dos direcciones}: para operaciones binarias una de las direcciones debe hacer el servicio doble de uno de los operandos y del resultado. 
+    \item \textbf{Instrucciones de tres direcciones}: no son comunes ta que requieren formatos relativamente largos para albergar las tres referencias. Una dirección es el destino y las otras dos son los operandos.
+  \end{itemize}
+
+  \subsubsection{Diseño del repertorio de instrucciones}
+
+  El repertorio de instrucciones es el medio que tiene el programador para controlar el procesador. En consecuencia deben considerarse las necesidades del programador a la hora de diseñar el repertorio de instrucciones.
+
+  Los aspectos fundamentales de diseño más importantes son:
+
+  \begin{itemize}
+    \item El \textbf{repertorio de operaciones}: cuántas y qué operaciones considerar, cuán complejas deben ser.
+    \item Los \textbf{tipos de datos}: los distintos tipos de datos con los que se efectúan operaciones.
+    \item Los \textbf{formatos de instrucciones}: longitud de la instrucción (en bits), número de direcciones, tamaño de los distintos campos, etc.
+    \item Los \textbf{registros}: número de registros del procesador que pueden ser referenciados por las instrucciones, y su uso.
+    \item El \textbf{direccionamiento}: el modo o modos de direccionamiento mediante los cuales puede especificarse la dirección de un operando.
+  \end{itemize}
+
 \end{subs}
