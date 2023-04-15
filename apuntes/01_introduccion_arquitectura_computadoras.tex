@@ -1,0 +1,65 @@
+%RESUMEN
+\section{Introducción a la Arquitectura de Computadoras}
+
+Cuando se describe un computador, frecuentemente se distingue entre \textit{arquitectura} y \textit{organización}.
+
+La \textit{arquitectura} de computadoras se refiere a los atributos de un sistema que son visibles a un programador, o para decirlo de otra manera,aquellos atributos que tiene un impacto directo en la ejecución lógica de un programa.
+En cambio, la \textit{organización} de computadores se refiere a las unidades funcionales y sus interconexiones, que dan lugar a especificaciones arquitectónicas.
+
+\subsection{Arquitectura Von Neumann}
+
+La tarea de cargar y modificar programas para el ENIAC\footnote{Electronic Numerical Integrator And Computer, diseñado y contruido bajo la supervisión de John Mauchly y John Presper Eckert en la Universidad de Pennsylvania, fue el primer computador electrónico de propósito general del mundo.} era extremadamente tediosa. El proceso de programación podría ser más fácil si el programa se representara en una forma adecuada parta ser guardado en la memoria junto con los datos.
+Esta idea conocida como \textit{concepto de programa-almacenado}, se atribuye al matemático y físico alemán John von Neumann.
+
+La \textbf{unidad central de procesamiento (CPU)} está constitutida por la \textbf{unidad de control (UC)} y la unidad \textbf{aritmético-lógica (ALU)}.
+Los datos e instrucciones deben introducirse en el sistema y los resultados se proporcionarán mediante componentes de \textbf{entrada/salida (E/S)}.
+Para almacenar temporalmente los datos e instrucciones, se utiliza una \textbf{memoria principal}.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Von_Neumann_architecture}
+  \caption{Arquitectura Von Neumann}
+\end{figure}
+\subsection{Repertorio de instrucciones}
+
+El funcionamiento del procesador está determinado por las instrucciones que ejecuta. Estas instrucciones se denominan \textit{instrucciones de maquina}. Al conjunto de instrucciones distintas quepuede ejecutar el procesador se denomina \textit{repertorio de instrucciones}.
+
+\begin{subs}
+  \subsubsection{Elementos de uns instrucciones de maquina}
+
+  Cada instrucción debe contener la información que necesita el procesador para su ejecución. Dichos elementos son:
+
+  \begin{itemize}
+    \item \textbf{Código de operación}: especifica la operación a realizar (suma, E/S, etc.).
+    \item \textbf{Referencia a operandos fuente u origen}: la operación puede implicar a uno o más operandos origen, es decir operandos que son entradas para la instrucción.
+    \item \textbf{Referencia al operando de destino}: la operación puede producir un resultado que debe ser almacenado en un operando destino.
+    \item \textbf{Referencia a la siguiente instrucción}: especifica la ubicación de la siguiente instrucción a ejecutar, (generamente la misma está implicita).
+  \end{itemize}
+
+  La siguiente instrucción a captar está en memoria principal o, en el caso de un sistema de memoria virtual, bien en memoria principal.
+  Los operandos origen y destino pueden estar en alguna de las tres áreas siguientes:
+  
+  \begin{itemize}
+    \item \textbf{Memoria principal o virtual}: como en las referencias a instrucciones siguientes, debe indicarse la dirección de memoria principal.
+    \item \textbf{Registro del procesador}: un procesador contiene uno o más registros que pueden ser referenciados por instrucciones máquina.
+    \item \textbf{Dispositivo de E/S}: la instrucción debe especificar el módulo y dispositivo de E/S para la operación. 
+  \end{itemize}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Ciclo-de-instruccion-CLI}
+    \caption{Ciclo de instrucción}
+  \end{figure}
+
+  \subsubsection{Tipos de instrucciones}
+
+  Cualquier programa escrito en alto nivel debe traducirse a lenguaje máquina para ser ejecutado. El repertorio de instrucciones máquina debe ser suficientemente amplio como para expresar cualquiera de las instrucciones e un lenguaje de alto nivel. Teniendo esto presente, los tipos de instrucciones se pueden clasificar de la siguiente manera:
+  \begin{itemize}
+    \item \textbf{Procesamiento de datos}: son instrucciones aritméticas y lógicas.
+    \item \textbf{Almacenamiento de datos}: son instrucciones de memoria.
+    \item \textbf{Transferencia de datos}: son instrucciones de E/S.
+    \item \textbf{Control}: son instrucciones de comprobación y bifurcación.
+  \end{itemize}
+
+  Las instrucciones \textit{aritméticas} proporcionan capacidad computacional para procesar datos numéricos. Las instrucciones \textit{lógicas} operan con los bits de una palabra en lugar considerarlos como números. Las instrucciones \textit{memoria} permiten transferir los datos entre la memoria y los registros. Las instrucciones \textit{E/S} se necesitan para transferir programas y datos a memoria y devolver resultados de los cálculos al usuario. 
+\end{subs}

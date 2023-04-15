@@ -1,0 +1,46 @@
+\documentclass{article}
+% Packages
+\usepackage{graphicx,subfig,float} % Required for inserting images
+\usepackage{changepage}
+\usepackage{amsmath}
+\usepackage{datetime}
+\usepackage[spanish]{babel}
+\usepackage{titling}
+\usepackage{geometry}
+
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  width=150mm,
+  height=230mm,
+}
+
+\usepackage{tcolorbox}
+
+\graphicspath{{assets/}}
+
+\numberwithin{equation}{section}
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+
+\newenvironment{subs}
+  {\adjustwidth{3em}{0pt}}
+  {\endadjustwidth}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+
+
+\title{Apuntes \\ Conceptos de Arquitectura de Computadoras}
+\author{Iván Valentín Polanis}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+\newpage
+
+\include{01_introduccion_arquitectura_computadoras.tex}
+
+\end{document}
