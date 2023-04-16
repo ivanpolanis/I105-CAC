@@ -1,4 +1,3 @@
-%RESUMEN
 \section{Introducción a la Arquitectura de Computadoras}
 
 Cuando se describe un computador, frecuentemente se distingue entre \textit{arquitectura} y \textit{organización}.
@@ -126,3 +125,85 @@ Las instrucciones máquina operan con datos. Las categorías más importantes de
   A veces resulta útil considerar una unidad de \textit{n} bits como \textit{n} elementos o datos de un bit, donde cada elemento tiene un valor de 1 o 0. Cuando los datos son vistos de esta manera, se consideran datos \textit{lógicos}.
   Las principal ventaja es que nos permiten almacenar una matriz de elementos bianarios o booleanos, por lo que la memoria puede ser utilizada de forma eficiente. También hay ocasiones en las que queremos manipular bits individuales de un dato.
 \end{subs}
+
+\subsection{Orden de los bytes}
+
+Supongamos una memoria direccionable de a byte, es decir, que cada byte tiene un dirección única. ¿Cómo se leeran los números que ocupan más de un byte? ¿Cómo se escribirán los números que ocupan más de un byte? 
+Para este problema se crearon dos formatos de almacenamiento:
+
+\begin{itemize}
+  \item \textbf{Big endian}: el byte más significativo se almacena en la dirección con valor numérico más bajo.
+  \item \textbf{Little endian}: el byte menos significativo se almacena en la dirección con valor numérico más bajo.
+\end{itemize}
+
+\begin{figure}[H]
+  \hspace*{\fill}
+  \subfloat[Big endian]{\includegraphics[width=0.30\textwidth]{Big-Endian}}
+  \hfill
+  \subfloat[Little endian]{\includegraphics[width=0.30\textwidth]{Little-Endian}}
+  \hspace*{\fill}
+\end{figure}
+
+\subsection{Modos de direccionamiento}
+
+El campo o campos de direcciones en un formato de instrucción usual está bastante limitado. Para poder referenciar un rango elevado de posiciones se han empleado diversas técnicas de direccionamiento. Las más comunes son:
+
+\begin{itemize}
+  \item \textbf{Inmediato}
+  \item \textbf{Directo}
+  \item \textbf{Indirecto}
+  \item \textbf{Registro}
+  \item \textbf{Indirecto con registro}
+  \item \textbf{Indirecto con desplazamiento}
+  \item \textbf{Pila}
+\end{itemize}
+
+\begin{subs}
+  \subsubsection{Inmediato}
+  El operando se encuentra presente en la propia instrucción. La ventaja es que una vez captada la instrucción, no se requiere una referencia a memoria para obtener un operando. La desventaja es que el tamaño del número está restringido a la longitud del campo de direcciones.
+
+  \subsubsection{Directo}
+
+  El campo de direcciones contiene la dirección efectiva del operando. La ventaja es que solo se requiere una referencia a memoria y no necesita ningún cálculo especial. La limitación es que proporciona un espacio de direcciones restringido.
+
+  \subsubsection{Indirecto}
+
+  El campo de direcciones referencia a la dirección de una palabra en memoria, la cual contiene la dirección completa del operando.
+
+  La ventaja de esta aproximación es que para una longitud de palabra $N$bits, se dispone ahora un espacio de direcciones de $2^N$. La desventaja es que la ejecución de la instrucción requiere dos referencias a memoria para captar el operando.
+
+  \subsubsection{Registro}
+
+  El campo de direcciones contiene el número de registro que contiene el operando. La ventaja es que la ejecución de la instrucción no requiere ninguna referencia a memoria. La desventaja es que el número de registros es limitado.
+
+  \subsubsection{Indirecto con registro}
+
+  El campo de direcciones contiene el número de registro que contiene la dirección del operando. La ventaja es que la ejecución de la instrucción requiere una referencia a memoria. La desventaja es que el número de registros es limitado.
+
+  \subsubsection{Indirecto con desplazamiento}
+
+  El direccionamiento con desplazamiento requiere que las instrucciones tengan dos campos de direcciones, al menos uno de los cuales explícito. El valor contenido en uno de los campos de direcciones se utiliza directamente. El otro campo, se refiere a un registro cuyo contenido se suma al valor del campo de direcciones. El resultado de la suma se utiliza como la dirección del operando.
+
+  \begin{itemize}
+    \item \textbf{Direccionamiento relativo}: el registro referenciado implícitamente es el \textbf{PC}. 
+    \item \textbf{Direccionamiento con registro base}: el registro referenciado contiene una dirección de memoria, y el campo de dirección contiene un desplazamiento desde dicha dirección. La referencia a registro puede ser explícita o implícita.
+    \item \textbf{Indexado}: el campo de dirección referencia una dirección de memoria principal, y el registro referenciado contiene un desplazamiento positivo desde esa dirección.
+  \end{itemize}
+
+  \subsubsection{Pila}
+
+  El modo de direccionamiento de pila, (explicado en el Apéndice\ref{ap:pilas}), es una forma de direccionamiento implícito. Las instrucciones máquina no necesitan incluir una referencia a memoria sino que operan implícitamente con la cabecera de la pila.
+\end{subs}
+
+\subsection{Tipos de operaciones}
+
+Las operaciones que se pueden realizar en un computador se pueden clasificar en:
+
+\begin{itemize}
+  \item \textbf{Transeferencia de datos}: mueven datos entre registros, registros a memoria y memoria a registros. Se debe especificar la ubicacion del operando fuente y destino, el tamaño de los datos y el modo de direccionamiento.
+  \item \textbf{Aritméticas}: son las operaciones ADD, SUB, MUL y DIV.\@ Puede incluirse tambien las operaciones INC o DEC (que solamente necesitan un operando), NEG (cambia el signo en Ca2) y ABS (valor absoluto).
+  \item \textbf{Lógicas}: son las operaciones AND, OR, XOR, NOT.\@ Puede incluirse tambien las operaciones SHL, SHR, ROL, ROR (que solamente necesitan un operando).
+  \item \textbf{Conversión}: son operaciones para cambiar formatos de datos, por ejemplo de EBCDIC\footnote{Extended Binary Coded Decimal Interchange Code} a ASCII.\@
+  \item \textbf{E/S}: son operaciones para leer o escribir datos en dispositivos de E/S. Son las instrucciones IN y OUT.\@ Se pueden realizar a través de un controlador aparte \textit{DMA}\footnote{Direct Memory Access}.
+  \item \textbf{Control}: son las instrucciones de salto, llamadas a subrutinas, etc. Algunas de ellas pueden ser JMP, JZ, JNZ, CALL, RET, etc.
+\end{itemize}
