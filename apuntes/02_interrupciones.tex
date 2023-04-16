@@ -69,3 +69,30 @@ Se pueden seguir dos alternativas para tratar las interrupciones múltiples:
 Un módulo de E/S puede intercambiar datos directamente con el procesador. Igual que el procesador puede iniciar una lectura o escritura en memoria, también puede leer o escribir datos de un módulo de E/S.
 En algunos casos, es deseable permitir que los intervambios de E/S se produzcan directamente con la memoria. En ese caso, el procesador cede a un módulo de E/S la autoriadad para leer de o escribir en memoria, para que así la transferencia de E/S-memoria pueda producirse sin la intervención  sel procesador.
 Durante esas transferencias, el módulo de E/S proporciona a la memoria las órdenes de lectura o escritura, liberando al procesador de cualquier responsabilidad en el intercambio. Esta operación se conoce con el nombre de \textit{DMA} (Direct Memory Access).
+
+\subsection{Reconocimiento de interrupciones}
+
+\begin{itemize}
+  \item \textbf{Interrupciones multinivel}: cada dispositivo que puede provocar una interrupción tiene una entrada física de interrupción conectada a la CPU.\@ Es muy sencillo, pero a la vez muy caro.
+  \item \textbf{Línea de interrupción única}: hay una sola entrada física de pedido de interrupción a la que están conetados todos los dispositivos. Es necesario preguntar a cada dispositivo si ha producido el pedido de interrupción (técnica de \textit{polling}).
+  \item \textbf{Interrupciones vectorizadas}: el dispositivo que quiere interrumpir además de la señal de pedido de interrupción, debe colocar en el bus de datos un identificador.
+\end{itemize}
+
+El encargado de manejar todas las interrupciones es el \textbf{PIC}\footnote{Programmable Interrupt Controller}. Las tareas realizas por el PIC son:
+
+\begin{itemize}
+  \item Puesto que existen muchos dispositivos que pueden solicitar interrupciones, es responsabilidad del PIC priorizarlas cuando existen varias IRQ's simultáneas.
+  \item Después de enviar una solicitud de interrupción, debe enviar un número de interrupción (número de vector) cuando el procesador indica que está listo para atender la petición.
+  \item Mantiene un registro de que se está procesando una interrupción; cuando esto no sucede, no envía más peticiones hasta que este le responde con una señal EOI\footnote{End of Interrupt}, indicando que la rutina de servicio precedente ha terminado o puede aceptar otra interrupción.
+  \item Puede enmascarar de forma selectiva cualquiera de las 8 IRQ's que tiene conectadas.
+\end{itemize}
+
+El \textbf{PIC} tiene varios registros internos, ellos son:
+
+\begin{itemize}
+  \item \textbf{EOI}: recibe 20H cuando el procesador ha terminado de atender la interrupción.
+  \item \textbf{Interrupt Mask Register}: contiene los bits de máscara de las IRQ's.
+  \item \textbf{Interrupt Request Register}: contiene los bits de estado de las IRQ's.
+  \item \textbf{Interrupt Status Register}: contiene el bit de estado de la IRQ que se está atendiendo.
+  \item \textbf{INT0\ldots INT7}: son los 8 vectores de interrupción.
+\end{itemize}
