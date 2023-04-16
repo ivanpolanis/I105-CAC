@@ -25,7 +25,7 @@ Para almacenar temporalmente los datos e instrucciones, se utiliza una \textbf{m
 El funcionamiento del procesador está determinado por las instrucciones que ejecuta. Estas instrucciones se denominan \textit{instrucciones de maquina}. Al conjunto de instrucciones distintas quepuede ejecutar el procesador se denomina \textit{repertorio de instrucciones}.
 
 \begin{subs}
-  \subsubsection{Elementos de uns instrucciones de maquina}
+  \subsubsection{Elementos de las instrucciones de maquina}
 
   Cada instrucción debe contener la información que necesita el procesador para su ejecución. Dichos elementos son:
 
@@ -38,11 +38,11 @@ El funcionamiento del procesador está determinado por las instrucciones que eje
 
   La siguiente instrucción a captar está en memoria principal o, en el caso de un sistema de memoria virtual, bien en memoria principal.
   Los operandos origen y destino pueden estar en alguna de las tres áreas siguientes:
-  
+
   \begin{itemize}
     \item \textbf{Memoria principal o virtual}: como en las referencias a instrucciones siguientes, debe indicarse la dirección de memoria principal.
     \item \textbf{Registro del procesador}: un procesador contiene uno o más registros que pueden ser referenciados por instrucciones máquina.
-    \item \textbf{Dispositivo de E/S}: la instrucción debe especificar el módulo y dispositivo de E/S para la operación. 
+    \item \textbf{Dispositivo de E/S}: la instrucción debe especificar el módulo y dispositivo de E/S para la operación.
   \end{itemize}
 
   \begin{figure}[H]
@@ -61,7 +61,7 @@ El funcionamiento del procesador está determinado por las instrucciones que eje
     \item \textbf{Control}: son instrucciones de comprobación y bifurcación.
   \end{itemize}
 
-  Las instrucciones \textit{aritméticas} proporcionan capacidad computacional para procesar datos numéricos. Las instrucciones \textit{lógicas} operan con los bits de una palabra en lugar considerarlos como números. Las instrucciones \textit{memoria} permiten transferir los datos entre la memoria y los registros. Las instrucciones \textit{E/S} se necesitan para transferir programas y datos a memoria y devolver resultados de los cálculos al usuario. 
+  Las instrucciones \textit{aritméticas} proporcionan capacidad computacional para procesar datos numéricos. Las instrucciones \textit{lógicas} operan con los bits de una palabra en lugar considerarlos como números. Las instrucciones \textit{memoria} permiten transferir los datos entre la memoria y los registros. Las instrucciones \textit{E/S} se necesitan para transferir programas y datos a memoria y devolver resultados de los cálculos al usuario.
 
   \subsubsection{Número de direcciones}
 
@@ -71,7 +71,7 @@ El funcionamiento del procesador está determinado por las instrucciones que eje
 
   \begin{itemize}
     \item \textbf{Instrucciones de una dirección}: para funcionar, una segunda dirección debe estar implícita. La dirección implícita es el registro del procesador \textit{acumulador}. El acumulador contiene uno de los operandos y se emplea para almacenar el resultado.
-    \item \textbf{Instrucciones de dos direcciones}: para operaciones binarias una de las direcciones debe hacer el servicio doble de uno de los operandos y del resultado. 
+    \item \textbf{Instrucciones de dos direcciones}: para operaciones binarias una de las direcciones debe hacer el servicio doble de uno de los operandos y del resultado.
     \item \textbf{Instrucciones de tres direcciones}: no son comunes ta que requieren formatos relativamente largos para albergar las tres referencias. Una dirección es el destino y las otras dos son los operandos.
   \end{itemize}
 
@@ -89,4 +89,40 @@ El funcionamiento del procesador está determinado por las instrucciones que eje
     \item El \textbf{direccionamiento}: el modo o modos de direccionamiento mediante los cuales puede especificarse la dirección de un operando.
   \end{itemize}
 
+\end{subs}
+
+\subsection{Tipos de operando}
+
+Las instrucciones máquina operan con datos. Las categorías más importantes de datos son:
+
+\begin{itemize}
+  \item Direcciones
+  \item Números 
+  \item Caracteres
+  \item Datos lógicos
+\end{itemize}
+
+\begin{subs}
+  \subsubsection{Direcciones}
+
+  \subsubsection{Números}
+
+  En los computadores son usuales tres tipos de datos numéricos:
+
+  \begin{itemize}
+    \item Enteros o en coma fija.
+    \item En coma flotante.
+    \item En decimal.
+  \end{itemize}
+
+  Hay que aclarar que hay un límite para la magnitud de los números representables en una máquina y en el caso de números de coma flotante, su precisión está limitada. Por tanto, el programador debe ser consciente de las consecuencias del redondeo, el desbordamiento o el desbordamiento a cero.
+
+  \subsubsection{Caracteres}
+
+  Una forma bastante común de datos es el texto o secuencieas de caracteres. Aunque la información textual sea más conveniente para las personas, los computadores trabajan mejor con números. Por tanto, los caracteres se representan mediante números. En la mayoría de los sistemas, los caracteres se representan mediante un código de 8 bits. El código ASCII\footnote{American Standard Code for Information Interchange} es el más común.
+
+  \subsubsection{Datos lógicos}
+
+  A veces resulta útil considerar una unidad de \textit{n} bits como \textit{n} elementos o datos de un bit, donde cada elemento tiene un valor de 1 o 0. Cuando los datos son vistos de esta manera, se consideran datos \textit{lógicos}.
+  Las principal ventaja es que nos permiten almacenar una matriz de elementos bianarios o booleanos, por lo que la memoria puede ser utilizada de forma eficiente. También hay ocasiones en las que queremos manipular bits individuales de un dato.
 \end{subs}
