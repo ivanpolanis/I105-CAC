@@ -259,7 +259,13 @@ Los registros del procesador son de dos tipos:
 El ciclo de instrucción es el conjunto de operaciones que se llevan a cabo para ejecutar una instrucción. El ciclo de instrucción se divide en tres etapas:
 
 \begin{itemize}
-  \item \textbf{Captación}: llevar la siguiente instrucción de la memoria al procesador.
-  \item \textbf{Ejecución}: interpretar el código de operación y llevar a cabo la operación indicada.
+  \item \textbf{Captación}: llevar la siguiente instrucción de la memoria al procesador. La instrucción se almacena en el registro IR.\@ El registro PC se incrementa, (a no ser que se indique lo contrario). La UC interpreta la instrucción captada y lleva a cabo las operaciones necesarias para ejecutarla.
+  \item \textbf{Ejecución}: interpretar el código de operación y llevar a cabo la operación indicada. Las operaciones posibles son:
+  \begin{itemize}
+    \item \textbf{CPU-Mem}: deben transferirse datos desde la CPU a la memoria o viceversa.
+    \item \textbf{CPU-E/S}: deben transferirse datos desde la CPU a un dispositivo de E/S o viceversa.
+    \item \textbf{Procesamiento de datos}: la CPU ha de realizar alguna operación aritmética o lógica con los datos.
+    \item \textbf{Control}: una instrucción puede especificar que la secuencia de ejecuación se altere.
+  \end{itemize}
   \item \textbf{Interrupción}: si las interrupciones están habilitadas y ha ocurrido una interrupción, guardar el estado del proceso actual y atender la instrucción.
 \end{itemize}
