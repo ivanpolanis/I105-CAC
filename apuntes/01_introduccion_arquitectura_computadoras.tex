@@ -207,3 +207,59 @@ Las operaciones que se pueden realizar en un computador se pueden clasificar en:
   \item \textbf{E/S}: son operaciones para leer o escribir datos en dispositivos de E/S. Son las instrucciones IN y OUT.\@ Se pueden realizar a través de un controlador aparte \textit{DMA}\footnote{Direct Memory Access}.
   \item \textbf{Control}: son las instrucciones de salto, llamadas a subrutinas, etc. Algunas de ellas pueden ser JMP, JZ, JNZ, CALL, RET, etc.
 \end{itemize}
+
+\subsection{Organización del procesador}
+
+Para comprender la organización del procesador, consideremos los requisitos que ha de cumplir:
+
+\begin{itemize}
+  \item \textbf{Captar instrucción}: el procesador lee una instrucción de la memoria.
+  \item \textbf{Interpretar instrucción}: la instrucción se decodifica para determinar qué acción es necesaria.
+  \item \textbf{Captar datos}: la ejecución de una instrucción puede exigir leer datos de la memoria o de un módulo de E/S.
+  \item \textbf{Procesar datos}: la ejecución de una instrucción puede exigir llevar a cabo alguna operación aritmética o lógica.
+  \item \textbf{Escrbibir datos}: los resultados de una ejecución pueden exigir escribir datos en la memoria o en un módulo de E/S.
+\end{itemize}
+
+\subsection{Organización de los registros}
+
+Los registros del procesador son de dos tipos:
+
+\begin{itemize}
+  \item \textbf{Registros visibles por el usuario}: permiten a programador de lenguaje máquina minimizar las referencias a memoria principal por medio de la optimización del usa de registros.
+  \item \textbf{Registros de control y de estado}: son utilizador por la unidad de control para controlar el funcionamiento del procesador y por programas privilegiados del sistema operativo para controlar la ejecución de programas.
+\end{itemize}
+
+\begin{subs}
+  \subsubsection{Registros visibles por el usuario}
+  Un registro visible por el usuario es aquél que puede ser referenciado por medio del lenguaje máquina que ejecuta el procesador.
+
+  Los \textbf{registros de uso general} pueden ser asignados por el programador a diversas funciones. Su uso dentro del repertorio de instrucciones puede ser ortogonal a la operación. Por ejemplo, el registro $R_0$ puede ser usado como un registro de acumulación, un registro de índice o un registro de apuntador.
+
+  Los \textbf{registros de datos} pueden usarse unicamente para contener datos y no se pueden emplear en el cálñculo de la dirección de un operando.
+
+  Los \textbf{registros de dirección} pueden ser de uso más o menos general, o pueden estar dedicados a un modo de direccionamiento particular.
+
+  Los \textbf{registros de código de condición} son bits fijados por el hardware del procesador como resultado de alguna operación. Estos bits son usados por el programador para controlar el flujo de ejecución de un programa.
+
+  \subsubsection{Registros de control y de estado}
+
+  Hay diversos registros del procesador que se emplean para controlar su funcionamiento. La mayoría de ellos, no son visibles por el usuario. 
+  Para la ejecución de una instrucción son esenciales cuatro registros:
+
+  \begin{itemize}
+    \item \textbf{PC}: contiene la dirección de la instrucción que se está ejecutando.
+    \item \textbf{IR}: contiene la instrucción que se está ejecutando.
+    \item \textbf{MAR}: contiene la dirección de memoria que se está accediendo.
+    \item \textbf{MBR}: contiene la palabra de datos a escribir en memoria o la palabra leída más recientemente.
+  \end{itemize}
+\end{subs}
+
+\subsection{Ciclo de instrucción}
+
+El ciclo de instrucción es el conjunto de operaciones que se llevan a cabo para ejecutar una instrucción. El ciclo de instrucción se divide en tres etapas:
+
+\begin{itemize}
+  \item \textbf{Captación}: llevar la siguiente instrucción de la memoria al procesador.
+  \item \textbf{Ejecución}: interpretar el código de operación y llevar a cabo la operación indicada.
+  \item \textbf{Interrupción}: si las interrupciones están habilitadas y ha ocurrido una interrupción, guardar el estado del proceso actual y atender la instrucción.
+\end{itemize}
