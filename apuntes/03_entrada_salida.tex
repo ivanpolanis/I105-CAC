@@ -37,7 +37,7 @@ Un dispositivo externo se conecta al computador mediante un enlace a un módulo 
   \caption{Dispositivo externo}\label{fig:Dispositivo-externo-tipo}
 \end{figure}
 
-La forma de un dispositivo externo se indica en la Figura~\ref{fig:Dispositivo-externo-tipo}. La conexión con el módulo de E/S se realiza a través de señales de control, estado y datos. 
+La forma de un dispositivo externo se indica en la Figura~\ref{fig:Dispositivo-externo-tipo}. La conexión con el módulo de E/S se realiza a través de señales de control, estado y datos.
 
 La \textit{lógica de control} asociada al dispositivo controla su operación en respuesta a las indicaciones del módulo de E/S. El \textit{transductor} convierte las señales eléctricas asociadas al dato a otra forma de energía en el caso de una salida y viceversa en el caso de unta entrada. Existe un buffer asociado al transductor para almacenar temporalmente el dato que se esta transfiriendo ente el módulo de E/S y el exterior.
 
@@ -53,7 +53,7 @@ Las principales funciones y requisitos de un módulo de E/S se esncuentran dentr
   \item \textbf{Detección de errores}: detecta los errores e informa al procesador.
 \end{itemize}
 
-La complejidad de los módulos de E/S y el número de dispositivos externos que controlan varían considerablemente. 
+La complejidad de los módulos de E/S y el número de dispositivos externos que controlan varían considerablemente.
 
 El funcionamiento de un módulo de E/S permite que el procesador vea a una amplia gama de dispositivos de forma simplificada. El módulo debe ovultar los detalles de temporización, formatos y electromecanica de los dispositivos externos para que el procesador pueda funcionar únicamente en términos de órdenes de lectura y escritura.
 
@@ -64,3 +64,88 @@ Un módulo de E/S que se encarga de la mayoría de los detalles del procesamient
   \includegraphics[width=0.6\textwidth]{Modulo-IO}
   \caption{Estructura de un módulo de E/S}\label{fig:Estructura-modulo-E/S}
 \end{figure}
+
+\subsection{Entrada y salida programada}
+
+Los datos se intercambian entre el procesador y el módulo de E/S. El procesador ejecuta un programa que controla directamente la operación de E/S:\@
+\begin{itemize}
+  \item Comprobación del estado del dispositivo.
+  \item Envío de una orden de lectura o escritura.
+  \item Transferencia del dato.
+\end{itemize}
+
+El procesador espera que el módulo de E/S termine la operación.
+
+Los detalles de la E/S programada se muestran en la Figura~\ref{fig:E/S-programada}:
+
+\begin{itemize}
+  \item La CPU solicita la operación de E/S.
+  \item El módulo E/S realiza la operación.
+  \item El módulo E/S activa los bits de estado del dispositivo direccionando y espera.
+  \item La CPU comprueba periódicamente el estado de esos bits, hasta que detecta que la operación fue completada.
+  \item En caso contrario la CPU espera y vuelve a comprobarlo más tarde.
+\end{itemize}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=0.38\textheight]{IO-programada}
+  \caption{E/S programada}\label{fig:E/S-programada}
+\end{figure}
+
+\begin{subs}
+
+  \subsubsection{Órdenes de E/S}
+  Al ejecutar una instrucción relacionada con una E/S, el procesador proporciona una dirección, especificando el módulo de E/S particular y el dispositivo externo, y una orden de E/S. Hay cuatro tipos de órdenes de E/S que puede recibir un módulo de E/S cuando es direccionado porel procesador:
+
+  \begin{itemize}
+    \item \textbf{Control}: se utiliza para activar el periférico e indicarle qué hacer. Estas órdenes son específicas del tipo particular de periférico.
+    \item \textbf{Test}: se utiliza para comprobar diversas condiciones de estado asociadas con el módulo de e/S y sus perífericos.
+    \item \textbf{Lectura}: hace que el módulo de E/S capte un dato de un periférico y lo sitúe en un buffer interno. Después el procesador puede obterner el dato solicitando que el módulo de E/S lo ponga en el bus de datos.
+    \item \textbf{Escritura}: hace que el módulo de E/S capte un dato del bus de datos y posteriormente lo transmita al periférico.
+  \end{itemize}
+
+\end{subs}
+
+\subsection{Entrada y salida con interrupciones}
+
+El problema con la E/S programada es que el procesador tiene que esperar un tiempo considerable a que el módulo de E/S en cuestión esté preparado para recibir o transmitir los datos.
+
+En la E/S con interrupciones, el módulo de E/S interrumpirá al procesador para solicitar su servicio cuando esté preparado para intercambiar datos con él.
+
+
+Desde el punto de vista del procesador, las acciones son las que siguen:
+
+\begin{itemize}
+  \item Envia una orden READ de lectura. El módulo E/S obtiene los datos del periférico mientras la CPU realiza otro trabajo.
+  \item La CPU chequea si hay pedidos de interrupciones pendientes al final de cada ciclo de instrucción.
+  \item La CPU detecta el pedido, guarda el contexto, interrumpe el proceso y realiza la gestión de la interrupción.
+  \item La CPU solicita los datos. El módulo E/S transfiere los datos.
+\end{itemize}
+
+\begin{subs}
+  \subsubsection{Cuestiones de diseño}
+
+  En la implementación de las E/S mediante interrupciones aparecen dos cuestiones. Primero, cómo determina el procesador qué dispositivo ha provocado la interrupción. Y segundo, si se han producido varias interrupciones, como decide el procesador la que debe atender.
+
+  Hay cuatro tipos de técnicas que se utilizan comunmente:
+
+  \begin{itemize}
+    \item \textbf{Múltiples línesas de interrupción}: consiste en proporcionar varias líneas de interrupción entre el procesador y los módulos de E/S. No resulta práctico dedicar más de unas pocas líneas del bus o terminales del procesador a ser líneas de interrupción. 
+    \item \textbf{Software poll}: cuando el procesador detecta una interrupción, se produce una bifurcación a una rutina de servicio de interrupción que se encarga de consultar cada módulo de E/S para determinar cuál ha provocado la interrupción. Este método es muy lento y no es muy eficiente.
+    \item \textbf{Daisy chain}: es una alternativa a la técnica anterior. Todos los módulos de E/S comparten una línea común para solicitar interrupciones. La línea de reconocimiento de interrupción se conecta encadenando los módulos uno tras otro. Cuando el procesador recibe una interrupción, activa el reconocimiento de interrupción. Esta señal se propaga a trabés de la secuencia de módulos de E/S ahsta que se alcanza un módulo que solicitó la interrupción. El módulo respondera colocando un vector, en el bus, que lo identifica. La CPU emplea el vector como puntero para acceder a la rutina de servicio.
+    \item \textbf{Arbitraje de bus}: un módulo de E/S debe en primer lugar disponer del control del bus antes de poder actibar la línea de petición de interrupción. Así, solo un módulo puede activar la línea en un mismo instante. Cuando el procesador detecta la interrupción, responde mediante la línea de reconocimiento de interrupción. Después, el módulo que solicitó la interrupción sitúa su vector en las línes de datos.
+  \end{itemize}
+\end{subs}
+
+\subsection{Acceso directo a memoria}
+
+El DMA requiere un módulo adicional en el bus del sistema. El módulo o controlador de DMA es capaz de imitar al procesador y de recibir el control del sistema cedido por el procesador. El módulo de DMA utiliza sólo cuando el procesador no lo necesita, o debe forzar al procesador a que suspenda temporalmente su funcionamiento. Esta última técnica es la más común y se denomina \textit{robo de cilo}.
+
+Cuando el procesador desea leer o escribir un bloque de datos, envía una orden al módulo de DMA, incluyendo la siguiente información:
+
+\begin{itemize}
+  \item Si se solicita una lectura o una escritura, utilizando la línea de control de lectura o escritura el procesador y el módulo de DMA.\@
+  \item La dirección del dispositivo de E/S en cuestión, indicada a través de las lías de datos.
+  \item La posición inicial de memoria a partir de donde se lee o se escribe indicada a través de las lineas de datos y almacenada por el módulo de DMA en su registro de direcciones.
+  \item El número de palabras a leer o escribir, también indicando a través de las líneas de datos y alamacenado en el registro de cuenta de datos.
+\end{itemize}
