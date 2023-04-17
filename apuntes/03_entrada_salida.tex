@@ -130,7 +130,7 @@ Desde el punto de vista del procesador, las acciones son las que siguen:
   Hay cuatro tipos de técnicas que se utilizan comunmente:
 
   \begin{itemize}
-    \item \textbf{Múltiples línesas de interrupción}: consiste en proporcionar varias líneas de interrupción entre el procesador y los módulos de E/S. No resulta práctico dedicar más de unas pocas líneas del bus o terminales del procesador a ser líneas de interrupción. 
+    \item \textbf{Múltiples línesas de interrupción}: consiste en proporcionar varias líneas de interrupción entre el procesador y los módulos de E/S. No resulta práctico dedicar más de unas pocas líneas del bus o terminales del procesador a ser líneas de interrupción.
     \item \textbf{Software poll}: cuando el procesador detecta una interrupción, se produce una bifurcación a una rutina de servicio de interrupción que se encarga de consultar cada módulo de E/S para determinar cuál ha provocado la interrupción. Este método es muy lento y no es muy eficiente.
     \item \textbf{Daisy chain}: es una alternativa a la técnica anterior. Todos los módulos de E/S comparten una línea común para solicitar interrupciones. La línea de reconocimiento de interrupción se conecta encadenando los módulos uno tras otro. Cuando el procesador recibe una interrupción, activa el reconocimiento de interrupción. Esta señal se propaga a trabés de la secuencia de módulos de E/S ahsta que se alcanza un módulo que solicitó la interrupción. El módulo respondera colocando un vector, en el bus, que lo identifica. La CPU emplea el vector como puntero para acceder a la rutina de servicio.
     \item \textbf{Arbitraje de bus}: un módulo de E/S debe en primer lugar disponer del control del bus antes de poder actibar la línea de petición de interrupción. Así, solo un módulo puede activar la línea en un mismo instante. Cuando el procesador detecta la interrupción, responde mediante la línea de reconocimiento de interrupción. Después, el módulo que solicitó la interrupción sitúa su vector en las línes de datos.
@@ -149,3 +149,37 @@ Cuando el procesador desea leer o escribir un bloque de datos, envía una orden 
   \item La posición inicial de memoria a partir de donde se lee o se escribe indicada a través de las lineas de datos y almacenada por el módulo de DMA en su registro de direcciones.
   \item El número de palabras a leer o escribir, también indicando a través de las líneas de datos y alamacenado en el registro de cuenta de datos.
 \end{itemize}
+
+El procesador delega la operación de E/S al módulo de DMA, que se encargará de ella. El módulo de DMA transfiere el bloque completo de datos, directamente desde o hacia la memoria, sin que tenga que pasar a través del procesador. Una vez que la transferencia termina, el módulo de DMA envía una señal de interrupción al procesador.
+
+Para una transferencia de E/S de varias palabras, el DMA es mucho más eficiente que la E/S mediante interrupciones o la E/S programada.
+
+Aunque la transferencia por DMA puede ser más eficientes, puede haber ciertos problemas. Se puede degradar el rendimiento de la CPU si el DMA hace uso intensivo del bus.
+
+El problema se reduce con el uso de memoria cache. La mayor parte del tiempo, la CPU lee instrucciones de la cache por lo que no necesita usar el bus de memoria. El DMA puede aprovechar estos intervalos en los que la CPU está leyendo instrucciones de la cache para realizar las transferencias.
+
+En caso de computadores sin cache, el procesador no utiliza el bus en todas las fases de la ejecución de una instrucción. El DMA puede aprovechar las fases de ejecución de una instrucción en las que la CPU no utiliza el bus para realizar sus transferencias.
+
+Si el DMA sólo toma el control del bus durante los intervalos de tiempo en los que la CPU no hace uso del mismo el rendimiento del sistema no sufrirá degradación alguna
+
+Si pueden distinguir dos tipos de transferencias:
+
+\begin{itemize}
+  \item Por ráfagas
+  \item Por robo de ciclo
+\end{itemize}
+
+\begin{subs}
+  \subsubsection{DMA modo ráfaga}
+
+  Cuando la CPU concede el bus, el DMA no lo libera hasta haber finalizado la transferencia de todo el bloque de datos completo. La ventaja que tiene es que la transferencia se realiza de forma rápida. Pero la desventa es que durante el tiempo que dura la transferencia la CPU no puede utilizar el bus con memoria, lo que puede degradar el rendimiento del sistema.
+
+  \subsubsection{DMA modo robo de ciclo}
+
+  Cuando la CPU concede el bus al DMA, se realiza la transferencia de una única palabra y después el DMA libera el bus. El DMA solicita el control del bus tantas veces como sea necesario hasta finalizar la transferencia del bloque completo.
+
+  La ventaja que tiene es que no se degrada el rendimiento del sistema. Aunque por contraparte, la transferencia tarda más tiempo en llevarse a cabo.
+
+  Para la CPU no es considerado una interrupción, por lo que no es necesario guardar el contexto. Si bien el trabajo de la CPU es lento, no será tanto como si ella realizara la transferencia. Por lo tanto, para transferencia de E/S de múltiples palabras, es la técnica más eficiente.
+
+\end{subs}
