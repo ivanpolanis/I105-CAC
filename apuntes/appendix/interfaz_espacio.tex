@@ -1,0 +1,17 @@
+\section{Interfaces de espacio}
+
+Hay 2 métodos para hacer la interfaz del espacio de E/S:\@
+
+\subsection*{E/S aislado}
+
+Esta técnica es utilizada por sistemas basados en procesadores Intel. En este tipo de interfaz, las posiciones de E/S se encuentran separadas de la memoria principal, en un espacio distinto de direcciones. Las direcciones de E/S llamadas puertos, están separadas de la memoria.
+
+La principal ventaja de esta técnica es que todo el espacio de memoria se encuentra ocupado por la misma. La desventaja es que para transferir datos entre el $\mu p$ y E/S se tienen que usar instrucciones especiales como IN y OUT.\@
+
+Cuando la UC decodifica OUT ó IN, activa las líneas del bus de control iow=input/output write ó ior=input/output read.
+
+Cuando la UC decodifica MOV, activa las líneas del bus de control mwr=memory write ó mrd=memory read.
+
+\subsection*{E/S mapeada en memoria}
+
+En esta técnica, las direcciones de E/S están mapeadas en las direcciones de memoria, por lo que las direcciones de E/S pertenecen al espacio de memoria. La principal ventaja es que se puede usar todo el conjunto de instrucciones del procesador, porque todas las posiciones son tomadas como direcciones. La desventaja es que el espacio de memoria se ve reducido por la presencia de las direcciones de E/S.

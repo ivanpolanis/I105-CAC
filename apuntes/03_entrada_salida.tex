@@ -192,9 +192,22 @@ A medida que los computadores han evolucionado, la complejidad y sosfiticación 
   \item La CPU controla directamente los periféricos.
   \item Se agrega un módulo de E/S o controlador.
   \item Idem 2, más llamado de interrupción.
-  \item El módulo de E/S provee el acceso directo a memoria(DMA).
+  \item El módulo de E/S provee el acceso directo a memoria (DMA).
   \item El módulo de E/S tiene su propio procesador con su pequeño conjunto de instruccioens.
   \item El módulo además tiene su memoria local, (se convierte en una computadora en sí mismo).
 \end{enumerate}
 
+\subsection*{Características de los canales de E/S}
 
+El canal de E/S representa una ampliación del concepto de DMA.\@ Un canal de E/S puede ejecutar instrucciones E/S, lo que le confiere un control completo sobre las operaciones de E/S.
+
+La CPU no ejecuta instrucciones de E/S, sino que los canales toman control completo sobre la transferencia de datos. Las instrucciones de E/S se encuentran almacenadas en la memoria principal para ser ejecutadas por un procesador de uso específico contenido en el propio canal de E/S.
+
+La CPU inicia una transeferencia de E/S indicando al canal de E/S que debe ejecutar un programa en la memoria. El programa especifica el dispositivo, el área de memoria para almacenamiento la priorida y las acciones a realizar en ciertas situaciones de error.
+
+Son comunes dos tipos de canales:
+
+\begin{itemize}
+  \item \textbf{Canal selector}: controla varios dispositivos de alta velocidad y se dedica a transferir datos a uno de esos dispositivos. El canal de E/S seleccciona un dispositvo y efectúa la transferencia de datos. Los dispositivos son manejados por un controlador o módulo de E/S. Por lo tanto, el canal de E/S ocupa el lugar de la CPU en el control de esos controladores.
+  \item \textbf{Canal multiplexor}: puede manejar las E/S de varios dispositivos al mismo tiempo. Para dispositivos de velocidad reducida, un \textit{multiplexor de byte} acepta o transmite caracteres tan rápido como es posible a varios dispositivos. Para dispositivos de velocidad elevada, un \textit{multiplexor de bloque} entrelaza bloques de datos de los distintos dispositivos.
+\end{itemize}
