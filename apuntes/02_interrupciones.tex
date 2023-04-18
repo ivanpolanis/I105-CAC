@@ -1,9 +1,9 @@
 \section{Interrupciones}
 
 Con el uso de interrupciones, el procesador puede dedicarse a ejecutar otras instrucciones mientras una operación de E/S está en curso. El procesador puede ser notificado cuando la operación de E/S ha terminado, y puede continuar con la ejecución de la instrucción que se interrumpió.
-Cuando el dispositivo externo está listo para aceptar maás datos del procesador, el módulo de E/S de este dispositivo externo envía una señal de \textit{petición de interrupción} al procesador. El procesador responde suspendiendo la operación del programa que estaba ejecutando y salta a un programa, conocido como gestor de interrupción, que da servicio a ese dispositivo concreto, y prosigue con la ejecución del programa original después de haber dado dicho servicio al dispositivo.
+Cuando el dispositivo externo está listo para aceptar más datos del procesador, el módulo de E/S de este dispositivo externo envía una señal de \textit{petición de interrupción} al procesador. El procesador responde suspendiendo la operación del programa que estaba ejecutando y salta a un programa, conocido como gestor de interrupción, que da servicio a ese dispositivo concreto, y prosigue con la ejecución del programa original después de haber dado dicho servicio al dispositivo.
 
-Para permitir el uso de interrupciones, se añade un \textit{ciclo de interrupción} al ciclo de instrucción. En el ciclo de interrupción el procesador comprueba si se ha generado alguna interrupción, indicada por la presencia una señal de interrupción. Si no hay señales, el procesador contonúa con el ciclo de captación y accede a la siguiente instrucción del programa. Si hay alguna petición, el procesador suspende la ejecución del programa en curso y guarda su contexto. El procesador carga el contador de programa con la dirección de comiento de una rutina de interrupción.
+Para permitir el uso de interrupciones, se añade un \textit{ciclo de interrupción} al ciclo de instrucción. En el ciclo de interrupción el procesador comprueba si se ha generado alguna interrupción, indicada por la presencia una señal de interrupción. Si no hay señales, el procesador continúa con el ciclo de captación y accede a la siguiente instrucción del programa. Si hay alguna petición, el procesador suspende la ejecución del programa en curso y guarda su contexto. El procesador carga el contador de programa con la dirección de comienzo de una rutina de interrupción.
 
 \begin{figure}[h]
   \centering
@@ -17,7 +17,7 @@ Podemos clasificar las interrupciones dependiendo de su importancia:
 
 \begin{itemize}
   \item \textbf{No enmascarables}: son aquellas interrupciones que no pueden ser ignoradas. Indican eventos peligros o de alta prioridad y requieren un respuesta eficiente y rápida.
-  \item \textbf{Enmascarables}: son aquellas interrupciones que pueden ser ignoradas. Sus eventos no configuran peligro ó pueden esperar. La posible solicitud de interrución puede inhibirse con instrucciones especiales.
+  \item \textbf{Enmascarables}: son aquellas interrupciones que pueden ser ignoradas. Sus eventos no configuran peligro ó pueden esperar. La posible solicitud de interrupción puede inhibirse con instrucciones especiales.
 \end{itemize}
 
 \begin{subs}
@@ -48,8 +48,8 @@ Se pueden seguir dos alternativas para tratar las interrupciones múltiples:
 
 \begin{itemize}
   \item \textbf{Interrupción inhabilitada}: mientras se está atendiendo una interrupción, se deshabilitan las interrupciones. Si se produce una interrupción, queda pendiente y será examinada por el procesador una vez que este haya activado las interrupciones nuevamente.
-  El inconveniente de este enfoque es que no teiene en cuenta la prioridad relativa ni las solicitudes con un tiempo crítico. 
-  \item \textbf{Interrupciones con prioridades}: se defienen prioridades para las interrupciones y permite que una interrupción de prioridad más alta pueda interrumpir a un gestor de interrupción de prioridad menor. Cuando se ha gestinoado la interrupción de prioridad más alta, el procesador vuelve a las interrupciones previas.
+  El inconveniente de este enfoque es que no tiene en cuenta la prioridad relativa ni las solicitudes con un tiempo crítico. 
+  \item \textbf{Interrupciones con prioridades}: se definen prioridades para las interrupciones y permite que una interrupción de prioridad más alta pueda interrumpir a un gestor de interrupción de prioridad menor. Cuando se ha gestionado la interrupción de prioridad más alta, el procesador vuelve a las interrupciones previas.
 \end{itemize}
 
 \begin{figure}[H]
@@ -67,14 +67,14 @@ Se pueden seguir dos alternativas para tratar las interrupciones múltiples:
 \subsection{Funcionamiento de las E/S}
 
 Un módulo de E/S puede intercambiar datos directamente con el procesador. Igual que el procesador puede iniciar una lectura o escritura en memoria, también puede leer o escribir datos de un módulo de E/S.
-En algunos casos, es deseable permitir que los intervambios de E/S se produzcan directamente con la memoria. En ese caso, el procesador cede a un módulo de E/S la autoriadad para leer de o escribir en memoria, para que así la transferencia de E/S-memoria pueda producirse sin la intervención  sel procesador.
+En algunos casos, es deseable permitir que los intercambios de E/S se produzcan directamente con la memoria. En ese caso, el procesador cede a un módulo de E/S la autoridad para leer de o escribir en memoria, para que así la transferencia de E/S-memoria pueda producirse sin la intervención  sel procesador.
 Durante esas transferencias, el módulo de E/S proporciona a la memoria las órdenes de lectura o escritura, liberando al procesador de cualquier responsabilidad en el intercambio. Esta operación se conoce con el nombre de \textit{DMA} (Direct Memory Access).
 
 \subsection{Reconocimiento de interrupciones}
 
 \begin{itemize}
   \item \textbf{Interrupciones multinivel}: cada dispositivo que puede provocar una interrupción tiene una entrada física de interrupción conectada a la CPU.\@ Es muy sencillo, pero a la vez muy caro.
-  \item \textbf{Línea de interrupción única}: hay una sola entrada física de pedido de interrupción a la que están conetados todos los dispositivos. Es necesario preguntar a cada dispositivo si ha producido el pedido de interrupción (técnica de \textit{polling}).
+  \item \textbf{Línea de interrupción única}: hay una sola entrada física de pedido de interrupción a la que están conectados todos los dispositivos. Es necesario preguntar a cada dispositivo si ha producido el pedido de interrupción (técnica de \textit{polling}).
   \item \textbf{Interrupciones vectorizadas}: el dispositivo que quiere interrumpir además de la señal de pedido de interrupción, debe colocar en el bus de datos un identificador.
 \end{itemize}
 

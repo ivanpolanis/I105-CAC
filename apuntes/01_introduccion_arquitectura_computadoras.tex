@@ -7,10 +7,10 @@ En cambio, la \textit{organización} de computadores se refiere a las unidades f
 
 \subsection{Arquitectura Von Neumann}
 
-La tarea de cargar y modificar programas para el ENIAC\footnote{Electronic Numerical Integrator And Computer, diseñado y contruido bajo la supervisión de John Mauchly y John Presper Eckert en la Universidad de Pennsylvania, fue el primer computador electrónico de propósito general del mundo.} era extremadamente tediosa. El proceso de programación podría ser más fácil si el programa se representara en una forma adecuada parta ser guardado en la memoria junto con los datos.
+La tarea de cargar y modificar programas para el ENIAC\footnote{Electronic Numerical Integrator And Computer, diseñado y construido bajo la supervisión de John Mauchly y John Presper Eckert en la Universidad de Pennsylvania, fue el primer computador electrónico de propósito general del mundo.} era extremadamente tediosa. El proceso de programación podría ser más fácil si el programa se representara en una forma adecuada parta ser guardado en la memoria junto con los datos.
 Esta idea conocida como \textit{concepto de programa-almacenado}, se atribuye al matemático y físico alemán John von Neumann.
 
-La \textbf{unidad central de procesamiento (CPU)} está constitutida por la \textbf{unidad de control (UC)} y la unidad \textbf{aritmético-lógica (ALU)}.
+La \textbf{unidad central de procesamiento (CPU)} está constituida por la \textbf{unidad de control (UC)} y la unidad \textbf{aritmético-lógica (ALU)}.
 Los datos e instrucciones deben introducirse en el sistema y los resultados se proporcionarán mediante componentes de \textbf{entrada/salida (E/S)}.
 Para almacenar temporalmente los datos e instrucciones, se utiliza una \textbf{memoria principal}.
 
@@ -21,7 +21,7 @@ Para almacenar temporalmente los datos e instrucciones, se utiliza una \textbf{m
 \end{figure}
 \subsection{Repertorio de instrucciones}
 
-El funcionamiento del procesador está determinado por las instrucciones que ejecuta. Estas instrucciones se denominan \textit{instrucciones de maquina}. Al conjunto de instrucciones distintas quepuede ejecutar el procesador se denomina \textit{repertorio de instrucciones}.
+El funcionamiento del procesador está determinado por las instrucciones que ejecuta. Estas instrucciones se denominan \textit{instrucciones de maquina}. Al conjunto de instrucciones distintas que puede ejecutar el procesador se denomina \textit{repertorio de instrucciones}.
 
 \begin{subs}
   \subsubsection{Elementos de las instrucciones de maquina}
@@ -32,7 +32,7 @@ El funcionamiento del procesador está determinado por las instrucciones que eje
     \item \textbf{Código de operación}: especifica la operación a realizar (suma, E/S, etc.).
     \item \textbf{Referencia a operandos fuente u origen}: la operación puede implicar a uno o más operandos origen, es decir operandos que son entradas para la instrucción.
     \item \textbf{Referencia al operando de destino}: la operación puede producir un resultado que debe ser almacenado en un operando destino.
-    \item \textbf{Referencia a la siguiente instrucción}: especifica la ubicación de la siguiente instrucción a ejecutar, (generamente la misma está implicita).
+    \item \textbf{Referencia a la siguiente instrucción}: especifica la ubicación de la siguiente instrucción a ejecutar, (generalmente la misma está implícita).
   \end{itemize}
 
   La siguiente instrucción a captar está en memoria principal o, en el caso de un sistema de memoria virtual, bien en memoria principal.
@@ -66,12 +66,12 @@ El funcionamiento del procesador está determinado por las instrucciones que eje
 
   Una de las formas tradicionales de describir la arquitectura de un procesador es en términos del número de direcciones contenidas en cada instrucción. Esta dimensión se va haciendo menos significativa a medida que aumenta la complejidad del diseño del procesador.
 
-  La mayoria de las instrucciones tienen una, dos o tre direcciones, estando implicita la dirección de la instrucción siguiente (obtenida a través del contador de programa)
+  La mayoría de las instrucciones tienen una, dos o tre direcciones, estando implícita la dirección de la instrucción siguiente (obtenida a través del contador de programa)
 
   \begin{itemize}
     \item \textbf{Instrucciones de una dirección}: para funcionar, una segunda dirección debe estar implícita. La dirección implícita es el registro del procesador \textit{acumulador}. El acumulador contiene uno de los operandos y se emplea para almacenar el resultado.
     \item \textbf{Instrucciones de dos direcciones}: para operaciones binarias una de las direcciones debe hacer el servicio doble de uno de los operandos y del resultado.
-    \item \textbf{Instrucciones de tres direcciones}: no son comunes ta que requieren formatos relativamente largos para albergar las tres referencias. Una dirección es el destino y las otras dos son los operandos.
+    \item \textbf{Instrucciones de tres direcciones}: no son comunes tal que requieren formatos relativamente largos para albergar las tres referencias. Una dirección es el destino y las otras dos son los operandos.
   \end{itemize}
 
   \subsubsection{Diseño del repertorio de instrucciones}
@@ -118,17 +118,17 @@ Las instrucciones máquina operan con datos. Las categorías más importantes de
 
   \subsubsection{Caracteres}
 
-  Una forma bastante común de datos es el texto o secuencieas de caracteres. Aunque la información textual sea más conveniente para las personas, los computadores trabajan mejor con números. Por tanto, los caracteres se representan mediante números. En la mayoría de los sistemas, los caracteres se representan mediante un código de 8 bits. El código ASCII\footnote{American Standard Code for Information Interchange} es el más común.
+  Una forma bastante común de datos es el texto o secuencias de caracteres. Aunque la información textual sea más conveniente para las personas, los computadores trabajan mejor con números. Por tanto, los caracteres se representan mediante números. En la mayoría de los sistemas, los caracteres se representan mediante un código de 8 bits. El código ASCII\footnote{American Standard Code for Information Interchange} es el más común.
 
   \subsubsection{Datos lógicos}
 
   A veces resulta útil considerar una unidad de \textit{n} bits como \textit{n} elementos o datos de un bit, donde cada elemento tiene un valor de 1 o 0. Cuando los datos son vistos de esta manera, se consideran datos \textit{lógicos}.
-  Las principal ventaja es que nos permiten almacenar una matriz de elementos bianarios o booleanos, por lo que la memoria puede ser utilizada de forma eficiente. También hay ocasiones en las que queremos manipular bits individuales de un dato.
+  Las principal ventaja es que nos permiten almacenar una matriz de elementos binarios o booleanos, por lo que la memoria puede ser utilizada de forma eficiente. También hay ocasiones en las que queremos manipular bits individuales de un dato.
 \end{subs}
 
 \subsection{Orden de los bytes}
 
-Supongamos una memoria direccionable de a byte, es decir, que cada byte tiene un dirección única. ¿Cómo se leeran los números que ocupan más de un byte? ¿Cómo se escribirán los números que ocupan más de un byte? 
+Supongamos una memoria direccionable de a byte, es decir, que cada byte tiene un dirección única. ¿Cómo se leerán los números que ocupan más de un byte? ¿Cómo se escribirán los números que ocupan más de un byte? 
 Para este problema se crearon dos formatos de almacenamiento:
 
 \begin{itemize}
@@ -200,9 +200,9 @@ El campo o campos de direcciones en un formato de instrucción usual está basta
 Las operaciones que se pueden realizar en un computador se pueden clasificar en:
 
 \begin{itemize}
-  \item \textbf{Transeferencia de datos}: mueven datos entre registros, registros a memoria y memoria a registros. Se debe especificar la ubicacion del operando fuente y destino, el tamaño de los datos y el modo de direccionamiento.
-  \item \textbf{Aritméticas}: son las operaciones ADD, SUB, MUL y DIV.\@ Puede incluirse tambien las operaciones INC o DEC (que solamente necesitan un operando), NEG (cambia el signo en Ca2) y ABS (valor absoluto).
-  \item \textbf{Lógicas}: son las operaciones AND, OR, XOR, NOT.\@ Puede incluirse tambien las operaciones SHL, SHR, ROL, ROR (que solamente necesitan un operando).
+  \item \textbf{Transferencia de datos}: mueven datos entre registros, registros a memoria y memoria a registros. Se debe especificar la ubicación del operando fuente y destino, el tamaño de los datos y el modo de direccionamiento.
+  \item \textbf{Aritméticas}: son las operaciones ADD, SUB, MUL y DIV.\@ Puede incluirse también las operaciones INC o DEC (que solamente necesitan un operando), NEG (cambia el signo en Ca2) y ABS (valor absoluto).
+  \item \textbf{Lógicas}: son las operaciones AND, OR, XOR, NOT.\@ Puede incluirse también las operaciones SHL, SHR, ROL, ROR (que solamente necesitan un operando).
   \item \textbf{Conversión}: son operaciones para cambiar formatos de datos, por ejemplo de EBCDIC\footnote{Extended Binary Coded Decimal Interchange Code} a ASCII.\@
   \item \textbf{E/S}: son operaciones para leer o escribir datos en dispositivos de E/S. Son las instrucciones IN y OUT.\@ Se pueden realizar a través de un controlador aparte \textit{DMA}\footnote{Direct Memory Access}.
   \item \textbf{Control}: son las instrucciones de salto, llamadas a subrutinas, etc. Algunas de ellas pueden ser JMP, JZ, JNZ, CALL, RET, etc.
@@ -217,7 +217,7 @@ Para comprender la organización del procesador, consideremos los requisitos que
   \item \textbf{Interpretar instrucción}: la instrucción se decodifica para determinar qué acción es necesaria.
   \item \textbf{Captar datos}: la ejecución de una instrucción puede exigir leer datos de la memoria o de un módulo de E/S.
   \item \textbf{Procesar datos}: la ejecución de una instrucción puede exigir llevar a cabo alguna operación aritmética o lógica.
-  \item \textbf{Escrbibir datos}: los resultados de una ejecución pueden exigir escribir datos en la memoria o en un módulo de E/S.
+  \item \textbf{Escribir datos}: los resultados de una ejecución pueden exigir escribir datos en la memoria o en un módulo de E/S.
 \end{itemize}
 
 \subsection{Organización de los registros}
@@ -226,7 +226,7 @@ Los registros del procesador son de dos tipos:
 
 \begin{itemize}
   \item \textbf{Registros visibles por el usuario}: permiten a programador de lenguaje máquina minimizar las referencias a memoria principal por medio de la optimización del usa de registros.
-  \item \textbf{Registros de control y de estado}: son utilizador por la unidad de control para controlar el funcionamiento del procesador y por programas privilegiados del sistema operativo para controlar la ejecución de programas.
+  \item \textbf{Registros de control y de estado}: son utilizados por la unidad de control para controlar el funcionamiento del procesador y por programas privilegiados del sistema operativo para controlar la ejecución de programas.
 \end{itemize}
 
 \begin{subs}
@@ -235,7 +235,7 @@ Los registros del procesador son de dos tipos:
 
   Los \textbf{registros de uso general} pueden ser asignados por el programador a diversas funciones. Su uso dentro del repertorio de instrucciones puede ser ortogonal a la operación. Por ejemplo, el registro $R_0$ puede ser usado como un registro de acumulación, un registro de índice o un registro de apuntador.
 
-  Los \textbf{registros de datos} pueden usarse unicamente para contener datos y no se pueden emplear en el cálñculo de la dirección de un operando.
+  Los \textbf{registros de datos} pueden usarse unicamente para contener datos y no se pueden emplear en el cálculo de la dirección de un operando.
 
   Los \textbf{registros de dirección} pueden ser de uso más o menos general, o pueden estar dedicados a un modo de direccionamiento particular.
 
@@ -265,7 +265,7 @@ El ciclo de instrucción es el conjunto de operaciones que se llevan a cabo para
     \item \textbf{CPU-Mem}: deben transferirse datos desde la CPU a la memoria o viceversa.
     \item \textbf{CPU-E/S}: deben transferirse datos desde la CPU a un dispositivo de E/S o viceversa.
     \item \textbf{Procesamiento de datos}: la CPU ha de realizar alguna operación aritmética o lógica con los datos.
-    \item \textbf{Control}: una instrucción puede especificar que la secuencia de ejecuación se altere.
+    \item \textbf{Control}: una instrucción puede especificar que la secuencia de ejecución se altere.
   \end{itemize}
   \item \textbf{Interrupción}: si las interrupciones están habilitadas y ha ocurrido una interrupción, guardar el estado del proceso actual y atender la instrucción.
 \end{itemize}
