@@ -183,3 +183,18 @@ Si pueden distinguir dos tipos de transferencias:
   Para la CPU no es considerado una interrupción, por lo que no es necesario guardar el contexto. Si bien el trabajo de la CPU es lento, no será tanto como si ella realizara la transferencia. Por lo tanto, para transferencia de E/S de múltiples palabras, es la técnica más eficiente.
 
 \end{subs}
+
+\subsection{Canales de E/S}
+
+A medida que los computadores han evolucionado, la complejidad y sosfiticación de sus componentes se ha incrementado. En ningún lugar se hace más evidente que en el funcionamiento de las E/S. Sus etapas pueden resumirse como:
+
+\begin{enumerate}
+  \item La CPU controla directamente los periféricos.
+  \item Se agrega un módulo de E/S o controlador.
+  \item Idem 2, más llamado de interrupción.
+  \item El módulo de E/S provee el acceso directo a memoria(DMA).
+  \item El módulo de E/S tiene su propio procesador con su pequeño conjunto de instruccioens.
+  \item El módulo además tiene su memoria local, (se convierte en una computadora en sí mismo).
+\end{enumerate}
+
+
