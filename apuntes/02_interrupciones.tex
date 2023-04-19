@@ -16,7 +16,7 @@ Para permitir el uso de interrupciones, se añade un \textit{ciclo de interrupci
 Podemos clasificar las interrupciones dependiendo de su importancia:
 
 \begin{itemize}
-  \item \textbf{No enmascarables}: son aquellas interrupciones que no pueden ser ignoradas. Indican eventos peligros o de alta prioridad y requieren un respuesta eficiente y rápida.
+  \item \textbf{No enmascarables}: son aquellas interrupciones que no pueden ser ignoradas. Indican eventos peligrosos o de alta prioridad y requieren un respuesta eficiente y rápida.
   \item \textbf{Enmascarables}: son aquellas interrupciones que pueden ser ignoradas. Sus eventos no configuran peligro ó pueden esperar. La posible solicitud de interrupción puede inhibirse con instrucciones especiales.
 \end{itemize}
 
@@ -38,7 +38,7 @@ Podemos clasificar las interrupciones dependiendo de su importancia:
 
   Las interrupciones por software son instrucciones explícitas que afectan al procesador de la misma manera que las interrupciones por hardware. La instrucción INT $n$ permite a las interrupciones ser generadas desde dentro del software utilizando el número del vector de interrupción como un operando.
 
-  Estas interrupciones permiten depurar los gestores de interrupción. También se utilizan para invocar funciones del sistema operativo, permitiendo asi cargar subrutinas del sistema operativo en algún lugar y puedan utilizarse.
+  Estas interrupciones permiten depurar los gestores de interrupción. También se utilizan para invocar funciones del sistema operativo, permitiendo asi cargar subrutinas del sistema operativo en algún lugar y puedan ser utilizadas.
 \end{subs}
 
 \subsection{Interrupciones múltiples}
@@ -67,7 +67,7 @@ Se pueden seguir dos alternativas para tratar las interrupciones múltiples:
 \subsection{Funcionamiento de las E/S}
 
 Un módulo de E/S puede intercambiar datos directamente con el procesador. Igual que el procesador puede iniciar una lectura o escritura en memoria, también puede leer o escribir datos de un módulo de E/S.
-En algunos casos, es deseable permitir que los intercambios de E/S se produzcan directamente con la memoria. En ese caso, el procesador cede a un módulo de E/S la autoridad para leer de o escribir en memoria, para que así la transferencia de E/S-memoria pueda producirse sin la intervención  sel procesador.
+En algunos casos, es deseable permitir que los intercambios de E/S se produzcan directamente con la memoria. En ese caso, el procesador cede a un módulo de E/S la autoridad para leer de o escribir en memoria, para que así la transferencia de E/S-memoria pueda producirse sin la intervención  del procesador.
 Durante esas transferencias, el módulo de E/S proporciona a la memoria las órdenes de lectura o escritura, liberando al procesador de cualquier responsabilidad en el intercambio. Esta operación se conoce con el nombre de \textit{DMA} (Direct Memory Access).
 
 \subsection{Reconocimiento de interrupciones}

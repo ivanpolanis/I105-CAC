@@ -5,7 +5,7 @@ Un módulo de E/S no es únicamente un conector mecánico que permite enchufar e
 Las razones por las que los periféricos no se conectan directamente al bus del sistema son:
 
 \begin{itemize}
-  \item Hay una pila variedad de periféricos con formas de funcionamiento diferentes. Podría ser imposible incorporar la lógica necesaria dentro del procesador para controlar tal diversidad de dispositivos.
+  \item Hay una amplia variedad de periféricos con formas de funcionamiento diferentes. Podría ser imposible incorporar la lógica necesaria dentro del procesador para controlar tal diversidad de dispositivos.
   \item Generalmente, la velocidad de transferencia de datos de los periféricos es mucho menor que la de la memoria o el procesador.
   \item Por otro lado, la velocidad de transferencia de algunos periféricos es mayor que la de la memoria o el procesador.
   \item Los periféricos suelen utilizar datos con formatos y tamaños de palabra diferentes de los del computador a los que se conectan.
@@ -14,7 +14,7 @@ Las razones por las que los periféricos no se conectan directamente al bus del 
 En consecuencia, se necesita un módulo de E/S. Este módulo tiene dos funciones principales:
 
 \begin{itemize}
-  \item Realizar la interfaz entre el procesador y la memoria y los periféricos.
+  \item Realizar la interfaz entre el procesador, la memoria y los periféricos.
   \item Realizar la interfaz entre uno o más dispositivos periféricos.
 \end{itemize}
 
@@ -39,7 +39,7 @@ Un dispositivo externo se conecta al computador mediante un enlace a un módulo 
 
 La forma de un dispositivo externo se indica en la Figura~\ref{fig:Dispositivo-externo-tipo}. La conexión con el módulo de E/S se realiza a través de señales de control, estado y datos.
 
-La \textit{lógica de control} asociada al dispositivo controla su operación en respuesta a las indicaciones del módulo de E/S. El \textit{transductor} convierte las señales eléctricas asociadas al dato a otra forma de energía en el caso de una salida y viceversa en el caso de unta entrada. Existe un buffer asociado al transductor para almacenar temporalmente el dato que se esta transfiriendo ente el módulo de E/S y el exterior.
+La \textit{lógica de control} asociada al dispositivo controla su operación en respuesta a las indicaciones del módulo de E/S. El \textit{transductor} convierte las señales eléctricas asociadas al dato a otra forma de energía en el caso de una salida y viceversa en el caso de unta entrada. Existe un buffer asociado al transductor para almacenar temporalmente el dato que se esta transfiriendo entre el módulo de E/S y el exterior.
 
 \subsection{Funciones de un módulo de E/S}
 
@@ -57,7 +57,7 @@ La complejidad de los módulos de E/S y el número de dispositivos externos que 
 
 El funcionamiento de un módulo de E/S permite que el procesador vea a una amplia gama de dispositivos de forma simplificada. El módulo debe ocultar los detalles de temporización, formatos y electromecánica de los dispositivos externos para que el procesador pueda funcionar únicamente en términos de órdenes de lectura y escritura.
 
-Un módulo de E/S que se encarga de la mayoría de los detalles del procesamiento, presentando al procesador una interfaz de alto nivel, se denomina \textit{canal de E/S} o \textit{procesador de E/S}. Un módulo que sea bastante simple qy requiera control detallado normalmente se denomina \textit{controlador de E/S}.
+Un módulo de E/S que se encarga de la mayoría de los detalles del procesamiento, presentando al procesador una interfaz de alto nivel, se denomina \textit{canal de E/S} o \textit{procesador de E/S}. Un módulo que sea bastante simple y requiera control detallado normalmente se denomina \textit{controlador de E/S}.
 
 \begin{figure}[h]
   \centering
@@ -99,7 +99,7 @@ Los detalles de la E/S programada se muestran en la Figura~\ref{fig:E/S-programa
 
   \begin{itemize}
     \item \textbf{Control}: se utiliza para activar el periférico e indicarle qué hacer. Estas órdenes son específicas del tipo particular de periférico.
-    \item \textbf{Test}: se utiliza para comprobar diversas condiciones de estado asociadas con el módulo de e/S y sus periféricos.
+    \item \textbf{Test}: se utiliza para comprobar diversas condiciones de estado asociadas con el módulo de E/S y sus periféricos.
     \item \textbf{Lectura}: hace que el módulo de E/S capte un dato de un periférico y lo sitúe en un buffer interno. Después el procesador puede obtener el dato solicitando que el módulo de E/S lo ponga en el bus de datos.
     \item \textbf{Escritura}: hace que el módulo de E/S capte un dato del bus de datos y posteriormente lo transmita al periférico.
   \end{itemize}
@@ -145,8 +145,8 @@ Cuando el procesador desea leer o escribir un bloque de datos, envía una orden 
 
 \begin{itemize}
   \item Si se solicita una lectura o una escritura, utilizando la línea de control de lectura o escritura el procesador y el módulo de DMA.\@
-  \item La dirección del dispositivo de E/S en cuestión, indicada a través de las lías de datos.
-  \item La posición inicial de memoria a partir de donde se lee o se escribe indicada a través de las lineas de datos y almacenada por el módulo de DMA en su registro de direcciones.
+  \item La dirección del dispositivo de E/S en cuestión, indicada a través de las líneas de datos.
+  \item La posición inicial de memoria a partir de donde se lee o se escribe indicada a través de las líneas de datos y almacenada por el módulo de DMA en su registro de direcciones.
   \item El número de palabras a leer o escribir, también indicando a través de las líneas de datos y almacenado en el registro de cuenta de datos.
 \end{itemize}
 
