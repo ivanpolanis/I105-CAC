@@ -1,0 +1,56 @@
+PIC   	EQU 	20H
+HAND  	EQU 	40H
+N_HND 	EQU 	10
+
+		ORG		40
+IP_HND	DW		RUT_HND
+
+		ORG		1000H
+MSJ		DW		?
+
+		ORG		3000H
+RUT_HND:PUSH	AX
+		CMP		DL,		5
+		JZ    	INV_1
+		JS		INV
+		MOV		AL,		[BX]
+		OUT		HAND,	AL
+		INC		BX
+		JMP		FIN
+INV_1:	MOV 	BX,		OFFSET	MSJ
+		ADD		BX,		5
+INV:	DEC		BX
+		MOV		AL, 	[BX]
+		OUT		HAND,	AL
+FIN:	DEC		DL
+		MOV		AL,		20H 
+		OUT		PIC,	AL
+		POP		AX
+		IRET
+
+
+		ORG		2000H
+		MOV		BX,		OFFSET MSJ
+		MOV		DL,		0
+ING:	INT 	6
+		INC		BX
+		INC		DL
+		CMP		DL,		5
+		JNZ		ING
+		MOV 	DL,		10
+		MOV		BX,		OFFSET MSJ
+		CLI
+		MOV		AL, 	0FBH
+		OUT		PIC+1,	AL
+		MOV		AL,		N_HND
+		OUT		PIC+6,	AL
+		MOV		AL,		80H
+		OUT		HAND+1,	AL
+		STI
+LAZO:	CMP		DL,		0
+		JNZ		LAZO
+		IN		AL,		HAND+1
+		AND		AL,		7FH
+		OUT		HAND+1,	AL
+		HLT
+		END
