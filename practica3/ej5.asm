@@ -11,7 +11,6 @@ INI_IMP:MOV AL,     0FDH
         IN  AL,     PIO
         AND AL,     0FDH
         OUT PIO,    AL
-        OUT PIO,    AL
         RET
 ;SUBRUTINA DE GENERACIÓN DE PULSO "STROBE"
         ORG 4000H
