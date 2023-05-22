@@ -1,0 +1,29 @@
+\section{Segmentación de instrucciones}
+
+En una arquitectura \textbf{RISC}\footnote{Reduced Instruction Set Computer} la mayoría de las instrucciones son del tipo registro a registro, y un ciclo de instrucción tiene las dos fases siguientes:
+
+\begin{itemize}
+  \item \textbf{I}: captación de instrucción
+  \item \textbf{E}: ejecución. Realiza una operación de la ALU como entrada y salida.
+\end{itemize}
+
+Las operaciones de carga y almacenamiento necesitan tres fases:
+
+\begin{itemize}
+  \item \textbf{I}: captación de instrucción
+  \item \textbf{E}: ejecución. Calcula una dirección de memoria.
+  \item \textbf{D}: memoria. Operación registro a memoria o memoria a registro.
+\end{itemize}
+
+Dada la simplicidad y regularidad de un repertorio de instrucciones RISC, el diseño de la organización en tres o cuatro etapas se realiza fácilmente. 
+
+\subsection{Optimización de la segmentación}
+
+Dada la naturaleza sencilla y regular de las instrucciones RISC, los esquemas de segmentación se pueden emplear eficientemente. Hay poca variación en la duración de la ejecución de instrucciones, y el cauce puede adaptarse para reflejar este hecho.
+
+Para compensar las dependencias de datos, se han desarrollado técnicas de reorganización de código. Consideremos primero las instrucciones de salto. El \textit{salto retardado}, que es una forma de incrementar la eficiencia de la segmentación, utiliza un salto que no tiene lugar hasta después de que se ejecute la siguiente instrucción. La posición de la instrucción inmediatamente después de la instrucción de salto se conoce como \textit{espacio de retardo}.
+
+Para saltos condicionales, el procedimiento no puede aplicarse a ciegas. Si la condición comprobada por la bifurcación puede alterarse por la instrucción inmediatamente precedente, el compilador ha de abstenerse de hacer el intercambio en su lugar, debe inserta un NOOP.
+
+Un tipo de táctica similar, llamada \textit{carga retardada}, se puede usar con las instrucciones LOAD. En las instrucciones LOAD, el procesador bloquea el registro destino de la carga. Después el procesador continúa la ejecución del flujo de instrucciones hasta que se alcanza una instrucción que necesite ese registro, deteniéndose hasta que la carga finalice. Si el compilador puede reorganizar las instrucciones de manera que se pueda hacer un trabajo útil mientras la carga está en el cauce, la eficiencia aumenta.
+
