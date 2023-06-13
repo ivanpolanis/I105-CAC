@@ -45,6 +45,33 @@ Dada la simplicidad y regularidad de un repertorio de instrucciones RISC, el dis
   \end{itemize}
 \end{itemize}
 
+\subsection{Segmentación de cauce}
+
+La segmentación de cauce (pipelining) es forma particularmente efectiva de organizar el hardware de la CPU para realizar más de una operación al mismo tiempo. 
+
+Consiste en descomponer el proceso de ejecución de las instrucciones en fases o etapas que permitan una ejecución simultánea. Explota el paralelismo entre las instrucciones de un flujo secuencial.
+
+La segmentación es una técnica de mejora de prestaciones a nivel de diseño hardware. La misma es invisible al programador.
+
+Es necesario uniformizar las etapas al tiempo de la más lenta.
+
+El diseño de procesadores segmentados tiene gran dependencia del repertoriod de instrucciones.
+
+La segmentación de cauce incrementa la productividad, pero no reduce el tiempo de ejecución de la instrucción.
+
+\subsubsection{Atascos de un cauce}
+
+Son situaciones que impiden a la siguiente instrucción que se ejecute en el ciclo que le corresponde. Estas pueden ser:
+
+\begin{itemize}
+  \item \textbf{Estructurales}
+  \subitem Provocados por conflictos por los recursos.
+  \item \textbf{Por dependencia de datos}
+  \subitem Ocurren cuando dos instrucciones se comunican por medio de un dato.
+  \item \textbf{Por dependencia de control}
+  \subitem Ocurren cuando la ejecución de una instrucción depende de cómo se ejecute otra. 
+\end{itemize}
+
 \subsection{Optimización de la segmentación}
 
 Dada la naturaleza sencilla y regular de las instrucciones RISC, los esquemas de segmentación se pueden emplear eficientemente. Hay poca variación en la duración de la ejecución de instrucciones, y el cauce puede adaptarse para reflejar este hecho.
