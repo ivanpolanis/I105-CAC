@@ -17,6 +17,34 @@ Las operaciones de carga y almacenamiento necesitan tres fases:
 
 Dada la simplicidad y regularidad de un repertorio de instrucciones RISC, el diseño de la organización en tres o cuatro etapas se realiza fácilmente. 
 
+\subsection{Segmentación en el WinMips64}
+
+\begin{itemize}
+  \item \textbf{Búsqueda (F, Fetch)}
+  \begin{itemize}
+    \item Se accede a memoria por la instruccion.
+    \item Se incrementa el Program Counter.
+  \end{itemize}
+  \item \textbf{Decodificación (D, Decode)}
+  \begin{itemize}
+    \item Se decodifica la instrucción, obteniendo operación a realizar en la ruta de datos.
+    \item Se accede al banco de registros por el/los operandos/s (si es necesario).
+    \item Se calcula el valor del operando inmediato con extensión de signo (si es necesario).
+  \end{itemize}
+  \item \textbf{Ejecucición (X, Execute)}
+  \begin{itemize}
+    \item Se ejecuta la operación en la ALU.
+  \end{itemize}
+  \item \textbf{Acceso a memoria (M, Memory Access)}
+  \begin{itemize}
+    \item Si se requiere un acceso a memoria, se accede.
+  \end{itemize}
+  \item \textbf{Almacenamiento (W, Writeback)}
+  \begin{itemize}
+    \item Si se requiere volcar un resultado a un registro, se accede al banco de registros.
+  \end{itemize}
+\end{itemize}
+
 \subsection{Optimización de la segmentación}
 
 Dada la naturaleza sencilla y regular de las instrucciones RISC, los esquemas de segmentación se pueden emplear eficientemente. Hay poca variación en la duración de la ejecución de instrucciones, y el cauce puede adaptarse para reflejar este hecho.
