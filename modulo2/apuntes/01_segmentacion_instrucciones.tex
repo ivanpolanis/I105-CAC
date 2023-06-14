@@ -17,12 +17,12 @@ Las operaciones de carga y almacenamiento necesitan tres fases:
 
 Dada la simplicidad y regularidad de un repertorio de instrucciones RISC, el diseño de la organización en tres o cuatro etapas se realiza fácilmente. 
 
-\subsection{Segmentación en el WinMips64}
+\subsection{Segmentación en el WinMIPS64}
 
 \begin{itemize}
   \item \textbf{Búsqueda (F, Fetch)}
   \begin{itemize}
-    \item Se accede a memoria por la instruccion.
+    \item Se accede a memoria por la instrucción.
     \item Se incrementa el Program Counter.
   \end{itemize}
   \item \textbf{Decodificación (D, Decode)}
@@ -31,9 +31,9 @@ Dada la simplicidad y regularidad de un repertorio de instrucciones RISC, el dis
     \item Se accede al banco de registros por el/los operandos/s (si es necesario).
     \item Se calcula el valor del operando inmediato con extensión de signo (si es necesario).
   \end{itemize}
-  \item \textbf{Ejecucición (X, Execute)}
+  \item \textbf{Ejecución (X, Execute)}
   \begin{itemize}
-    \item Se ejecuta la operación en la ALU.
+    \item Se ejecuta la operación en la ALU.\@
   \end{itemize}
   \item \textbf{Acceso a memoria (M, Memory Access)}
   \begin{itemize}
@@ -55,7 +55,7 @@ La segmentación es una técnica de mejora de prestaciones a nivel de diseño ha
 
 Es necesario uniformizar las etapas al tiempo de la más lenta.
 
-El diseño de procesadores segmentados tiene gran dependencia del repertoriod de instrucciones.
+El diseño de procesadores segmentados tiene gran dependencia del repertorio de instrucciones.
 
 La segmentación de cauce incrementa la productividad, pero no reduce el tiempo de ejecución de la instrucción.
 
@@ -65,11 +65,11 @@ Son situaciones que impiden a la siguiente instrucción que se ejecute en el cic
 
 \begin{itemize}
   \item \textbf{Estructurales}
-  \subitem Provocados por conflictos por los recursos.
+  \subitem{Provocados por conflictos por los recursos.}
   \item \textbf{Por dependencia de datos}
-  \subitem Ocurren cuando dos instrucciones se comunican por medio de un dato.
+  \subitem{Ocurren cuando dos instrucciones se comunican por medio de un dato.}
   \item \textbf{Por dependencia de control}
-  \subitem Ocurren cuando la ejecución de una instrucción depende de cómo se ejecute otra. 
+  \subitem{Ocurren cuando la ejecución de una instrucción depende de cómo se ejecute otra.}
 \end{itemize}
 
 \subsection{Optimización de la segmentación}
@@ -78,7 +78,7 @@ Dada la naturaleza sencilla y regular de las instrucciones RISC, los esquemas de
 
 Para compensar las dependencias de datos, se han desarrollado técnicas de reorganización de código. Consideremos primero las instrucciones de salto. El \textit{salto retardado}, que es una forma de incrementar la eficiencia de la segmentación, utiliza un salto que no tiene lugar hasta después de que se ejecute la siguiente instrucción. La posición de la instrucción inmediatamente después de la instrucción de salto se conoce como \textit{espacio de retardo}.
 
-Para saltos condicionales, el procedimiento no puede aplicarse a ciegas. Si la condición comprobada por la bifurcación puede alterarse por la instrucción inmediatamente precedente, el compilador ha de abstenerse de hacer el intercambio en su lugar, debe inserta un NOOP.
+Para saltos condicionales, el procedimiento no puede aplicarse a ciegas. Si la condición comprobada por la bifurcación puede alterarse por la instrucción inmediatamente precedente, el compilador ha de abstenerse de hacer el intercambio en su lugar, debe inserta un NOOP.\@
 
-Un tipo de táctica similar, llamada \textit{carga retardada}, se puede usar con las instrucciones LOAD. En las instrucciones LOAD, el procesador bloquea el registro destino de la carga. Después el procesador continúa la ejecución del flujo de instrucciones hasta que se alcanza una instrucción que necesite ese registro, deteniéndose hasta que la carga finalice. Si el compilador puede reorganizar las instrucciones de manera que se pueda hacer un trabajo útil mientras la carga está en el cauce, la eficiencia aumenta.
+Un tipo de táctica similar, llamada \textit{carga retardada}, se puede usar con las instrucciones LOAD.\@ En las instrucciones LOAD, el procesador bloquea el registro destino de la carga. Después el procesador continúa la ejecución del flujo de instrucciones hasta que se alcanza una instrucción que necesite ese registro, deteniéndose hasta que la carga finalice. Si el compilador puede reorganizar las instrucciones de manera que se pueda hacer un trabajo útil mientras la carga está en el cauce, la eficiencia aumenta.\@
 
