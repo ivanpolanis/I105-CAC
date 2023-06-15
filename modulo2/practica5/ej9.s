@@ -1,29 +1,27 @@
-		.data
-valor: 	.word 5
-result: .word 0
-		.text
-        daddi   $sp, $0, 0x400      ; Inicializa el puntero al tope de la pila (1)
-        ld      $a0, valor($0)
-        jal     factos
-        sd      $v0, result($0)
-        halt
+            .data
+n:          . word 5
+res:        .word 0
 
-;recibe en a0 el numero
-factos: daddi   $sp, $sp, -8        ;pusheo ra
-        sd      $ra, 0($sp)
-        daddi   $t0, $a0, -1
-        beqz    $t0, ret1           ; si a0 es 1, devuelvo 1
-        daddi   $sp, $sp, -8        ;push a0
-        sd      $a0 ,0($sp)
-        daddi   $a0, $a0, -1        ;decremento a0
-        jal     factos
-        ld      $a0, 0($sp)
-        daddi   $sp, $sp, 8        ;pop a0
-        dmul    $v0, $a0, $v0
-        j fin
+            .text
+            daddi $sp, $0, 0x400
+            ld $a0, n($0)
+            jal factorial
+            sd $v0, res($0)
+            halt
 
-ret1:   daddi   $v0, r0, 1
-    
-fin:    ld      $ra, 0($sp)        ;pop $ra
-        daddi   $sp, $sp, 8
-        jr      $ra 
+            ;a0 recibo el numero
+factorial:  daddi $sp, $sp, -16 
+            sd $ra, 0($sp)        ;guardo ra
+            sd $a0, 8($sp)        ;guardo el valor a0 para no perderlo en la recursión
+            slti $t0, $a0, 2      ;veo si a0 = 1
+            daddi $v0, $a0, 0
+            bnez $t0, else        
+            daddi $a0, $a0, -1    ;resto 1 a a0
+            jal factorial         ;llamo recursivamente
+
+            ld $a0, 8($sp)        ;recupero el valor de a0 correspondiente
+            dmul $v0, $v0, $a0    ;lo multiplico con v0
+
+else:       ld $ra, 0($sp)        ;recupero ra
+            daddi $sp, $sp, 16    ;muevo el sp
+            jr $ra
