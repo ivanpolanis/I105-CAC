@@ -41,7 +41,7 @@ lwu $s1, CONTROL($0) ; Carga el valor 0x10008 en $s1
 
 ▪ _Si se escribe un 7 en CONTROL, se limpia la pantalla gráfica de la terminal._
 
-▪ _Si se escribe un 8 en CONTROL, se permitirá ingresar en la terminal un número (entero o en punto flotante) y el valordel número ingresado estará disponible para ser leído en DATA._
+▪ _Si se escribe un 8 en CONTROL, se permitirá ingresar en la terminal un número (entero o en punto flotante) y el valor del número ingresado estará disponible para ser leído en DATA._
 
 ▪ _Si se escribe un 9 en CONTROL, se esperará a que se presione una tecla en la terminal (la cuál no se mostrará al ser presionada) y el código ASCII de dicha tecla estará disponible para ser leído en DATA._
 

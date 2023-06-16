@@ -22,7 +22,7 @@ sd $t3, nuevo($t1)
 daddi $t2, $t2, 1
 daddi $t1, $t1, 8
 fuera: daddi $t0, $t0, 8
-daddi $s2, $2, -1
+daddi $s2, $s2, -1
 bnez $s2, loop
 sd $t2, total($0)
 halt

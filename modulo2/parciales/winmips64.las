@@ -1,1 +1,0 @@
-Z:\home\ivan\Documents\I105-CAC\modulo2\parciales\parcial6.s

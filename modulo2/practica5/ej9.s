@@ -1,5 +1,5 @@
             .data
-n:          . word 5
+n:          .word 10
 res:        .word 0
 
             .text
