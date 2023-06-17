@@ -1,0 +1,91 @@
+\section{Memoria}
+
+\subsection{Diseño de una jerarquía de memoria básica}
+
+El sistema de memoria formado por una memoria principal única que se propuso en los primeros modelos de computador sencillo quedó descartado rápidamente por sus bajas prestaciones.
+
+La alternativa a esta memoria única es una jerarquía de memoria organizada en niveles, cuanto más cercanos al procesador, más pequeños, rápidos y caros. Hoy en día esta jerarquía incluye, en casi todos los casos, tres tipos de memorias: memoria caché, memoria principal y memoria virtual.
+
+\begin{itemize}
+  \item \textbf{Memoria Caché (MC):} Se ubica dentro del mismo chip que el procesador, fabricada con \textit{RAM} estática (SRAM) y controlada por el controlador de caché incluido en el mismo chip. Hoy en día lo habitual es que haya varios niveles de caché.
+  \item \textbf{Memoria Principal (MP):} Se ubica en un chip diferente al procesador, fabricada con RAM dinámica (DRAM) y controlada por el controlador de memoria principal. Este controlador es muy importante para el rendimiento de la jerarquía de memoria ya que se encarga de la planificación de los accesos a memoria principal. Hoy en día puede ubicarse en el mismo chip que el procesador y la memoria caché, o en otro chip como el el chipset norte o el MCH.\@
+  \item \textbf{Memoria virtual (MV):} Ubicada en la actualidad en el disco duro, se fabrica por lo tanto con tecnología magnética y se controla desde el sistema operativo a través del controlador del disco duro.
+\end{itemize}
+
+El objetivo es conseguir una estructura de memoria de gran capacidad, con un coste casi tan bajo como el del nivel más barato de la jerarquía, pero con latencia comparable a la del nivel más rápido.
+
+Hay dos propiedades que la jerarquía debe cumplir para que su funcionamiento sea adecuado:
+
+\begin{itemize}
+  \item \textbf{Inclusión:} implica que cualquier información contenida en un nivel de la jerarquía debe estar también en los niveles superiores (en los que están más lejos del procesador a partir de él):
+  \item \textbf{Coherencia:} garantiza que las copias de la misma información en los diferentes niveles de la jerarquía son coherentes entre sí, es decir, que almacenan los mismos valores.
+\end{itemize}
+
+Cuando el procesador realiza un acceso a memoria, primero se busca la palabra que hay que leer o escribir en la memoria caché \textbf{(MC)}. Si esta palabra se encuentra en la caché, ha ocurrido un acierto. Si por el contrario, no se encuentra a ocurrido un fallo.
+
+En este último caso, se traerá de memoria principal \textbf{(MP)} un bloque que contendrá varias palabras, entre ellas, la que ha producido el fallo.
+
+El \textbf{principio de localidad} tiene dos aspectos diferentes:
+
+\begin{itemize}
+  \item \textbf{Localidad espacial:} es la tendencia del procesador a referenciar elementos de memoria cercanos a los últimos que han sido referenciados.
+  \item \textbf{Localidad temporal:} es la tendencia del procesador a referenciar elementos de memoria que han sido referenciados recientemente.
+\end{itemize}
+
+Al acceder a memoria principal también pueden producirse aciertos y fallos, ya que no toda la información cabe al mismo tiempo en este nivel. La relación entre la memoria principal y la memoria virtual es similar a la que existe entre la memoria caché y la principal.
+
+La memoria principal se divide en \textbf{páginas o segmentos}, de mayor tamaño que los bloques de caché. Cuando se produce un fallo con una página o segmento que no se encuentra en la memoria principal, deberá traerse de la memoria virtual.
+
+La principal diferencia con los fallos de la memoria caché está en que la penalización por este tipo de fallos es bastante grande, ya que la memoria virtual es la más lenta de toda la jerarquía. Por ello el procesador suele pasara  realizar otro tipo de tareas, realizando un cambio de contexto, hasta que la página o segmento esté disponible en la memoria principal.
+
+\subsection{Mecanismo completo de acceso a memoria}
+
+En primer lugar, el procesador genera la dirección virtual de la palabra que se debe leer o escribir. Normalmente, lo primero que se hace es traducir esta dirección virtual a una dirección física comprensible para la jerarquía de memoria.
+
+Si se consigue realizar esta traducción de dirección, es porque la palabra que está buscando se encuentra actualmente en la memoria principal. Con esta dirección se accede a la memoria caché, y si la palabra buscada se encuentra en este nivel, el acceso a memoria ya ha finalizado.
+
+Si por el contrario, se produce un fallo, se busca la palabra en el siguiente nivel, en este caso en la memoria principal, (si existiese otro nivel de cache, se buscaría primero allí).
+
+La resolución de un fallo siempre implica buscar el bloque necesario en la memoria principal.
+
+Cu¿ando se realice el acceso, todo el bloque en el que se incluye la palabra solicitada por el procesador se envía a la memoria caché para resolver su fallo, y el acceso puede completarse con éxito.
+
+Si por el contrario, la palabra no se encuentra en memoria principal y desde un principio no se pudo traducir su dirección virtual a dirección física por este motivo, se debe resolver el fallo de página o segmento desde la memoria virtual. El sistema operativo realiza un cambio de contexto para que otro proceso pase a ejecutarse en el procesador mientras se trae desde memoria virtual la página o segmento, que hace falta para resolver el fallo. Una vez que esté en memoria principal esta página o segmento, ya puede llevarse el bloque correspondiente a memoria caché y cuando el proceso que había provocado el fallo vuelva a pasar a ejecución, el acceso puede completarse con éxito.
+
+Para un procesador segmentado, los accesos a memoria en la etapa \textbf{MEM}, en su mayoría, sólo tienen en cuenta los accesos a caché, y si hay que resolver un fallo, el tiempo que se tarda en resolver este fallo se considera un tiempo extra que hay que sumar al tiempo que tarda en ejecutarse una instrucción. 
+
+\subsection{Evaluación de prestaciones de la jerarquía de memoria}
+
+En el caso de la jerarquía de memoria también se puede definir una ecuación de prestaciones que proporciones una herramienta cuantitativa de evaluación de rendimiento.
+
+En este caso lo que interesa saber es cuánto tiempo le cuesta en media al procesador realizar un acceso a memoria. Si la memoria caché fuera perfecta y no fallara nunca, el tiempo medio de acceso a memoria sería justo el tiempo de acierto a la memoria caché. Pero como se producen fallos, el tiempo medio de acceso a memoria se calcula teniendo en cuenta estos fallos y el tiempo que se invierte en resolverlos, lo que se ha denominado penalización por fallo:
+
+\begin{align*}
+  \centering
+  t_{MEM} = t_{acierto MC} + TF \cdot pF 
+\end{align*}
+
+\begin{align*}
+  t_{acierto MC}&\text{: Tiempo de acierto de MC} \\
+  TF&\text{: Tasa de fallos de MC} \to\ TF = \frac{\text{número de fallos}}{\text{número total de accesos a memoria}} \\
+  pF&\text{: Penalización por fallo en MC}
+\end{align*}
+
+Si lo que interesa es evaluar las prestaciones de la memoria principal o de la memoria virtual como niveles aislados de la jerarquía, las métricas que se suelen utilizarse son:
+
+\begin{itemize}
+  \item \textbf{Latencia:} tiempo que transcurre desde que un acceso a memoria comienza hasta que finaliza. Está muy relacionada con la tecnología con la que está fabricada la memoria.
+  \item \textbf{Ancho de banda:} cantidad de información por unidad de tiempo que puede transferirse desde/hacia la memoria. En este caso está muy relacionado con la organización de la memoria más que con la tecnología.
+\end{itemize}
+
+
+\subsection{Niveles de la jerarquía de memoria}
+
+\subsubsection{Diseño de la memoria caché}
+
+La memoria caché almacena en cada momento unos determinados bloques de información, por lo tanto se divide en marcos capaces de albergar estos bloques en su interior.
+
+La caché no sólo se compone de marcos, ya que para determinar qué bloque está ocupando un determinado marco en un instante concreto se utilizan etiquetas que también deben almacenarse en la memoria. Esta etiquetas se comparan con la del bloque que se está buscando para determinar si éste se encuentra o no en la memoria caché.
+
+\subsubsection*{Organización de la memoria caché}
+
