@@ -89,3 +89,71 @@ La caché no sólo se compone de marcos, ya que para determinar qué bloque est�
 
 \subsubsection*{Organización de la memoria caché}
 
+El primer aspecto importante a decidir es el tamaño de la cache, no puede ser demasiado pequeña ya que aumentaría el número de fallos porque no se capturaría bien la localidad. 
+
+Tampoco puede ser demasiado grande por dos motivos, el primero es que va integrada en el chip de la cpu y el segundo es que una cache muy grande requeriría una lógica más compleja, por lo que sería más lenta.
+
+El segundo aspecto a tener en cuenta es el tamaño de marco que se va a manejar. Devuelta tenemos el mismo problema, si capturamos bloques muy grandes se captura mejor la localidad espacial, pero a su vez aumenta la penalización por fallo, ya que se necesitaría más tiempo para traer los bloques del siguiente nivel de la jerarquía de memoria.
+
+En muchos casos, la segmentación del procesador obligará a dividir la caché de instrucciones y la de datos para evitar los riesgos estructurales entre las etapas de búsqueda de instrucción y las de acceso a memoria para la lectura o escritura de operandos/resultados.
+
+Por último, destacar dentro de la organización de la caché uno de los aspectos que más influye ene l rendimiento de la jerarquía de memoria: la implementación de cachés multinivel.
+
+Normalmente se utilizan dos niveles de memoria caché:
+
+\begin{itemize}
+  \item \textbf{L1:} este nivel es el más cercano al procesador, por lo tanto, esta memoria caché es pequeña y rápida.
+  \item \textbf{L2:} es el siguiente nivel de la jerarquía, de mayor tamaño (por lo que aprovecha mejor el principio de localidad) y por lo tanto, más lento aunque con menos fallos de capacidad.
+\end{itemize}
+
+De esta manera, cuando se produzca un fallo en el nivel 1 de la memoria, la penalización de esta fallo será menor que si sólo hubieran un nivel de caché, porque en lugar de ir a la memoria principal irá a la caché de nivel 2.
+
+\subsubsection*{Política de ubicación}
+
+Hay tres tipos de ubicación:
+
+\begin{itemize}
+  \item \textbf{Directo:} a cada bloque le corresponde un único marco de caché y sólo puede alojarse en este marco.
+  \item \textbf{Asociativo:} un bloque puede alojarse en cualquier marco de la memoria caché.
+  \item \textbf{Asociativo por conjuntos:} la memoria caché se divide en conjuntos con un número determinado de marcos por conjunto. A un determinado bloque le corresponde un único conjunto, pero dentro de él, puede alojarse en cualquier marco.
+\end{itemize}
+
+Las diferentes alternativas para la ubicación en la memoria caché llevan a diferentes interpretaciones de la dirección física desde el punto de vista de esta memoria. Según el tipo de ubicación de la memoria caché:
+
+\begin{itemize}
+  \item \textbf{Directo:} el índice indica al marco que le corresponde a ese bloque de memoria.
+  \item \textbf{Asociativo:} no existe este campo en la dirección, ya que el bloque puede alojarse en cualquier marco.
+  \item \textbf{Asociativo por conjuntos:} el índice indica el conjunto que le corresponde a ese bloque de memoria.
+\end{itemize}
+
+\subsubsection*{Política de reemplazo}
+
+Además de decidir la política de ubicación de la memoria caché, también es necesario definir qué ocurre cuando se produce un fallo. Si no se encuentra un determinado bloque de memoria en la caché, habrá que traerlo del siguiente nivel de la jerarquía de memoria. Pero, ¿qué bloque se reemplaza?
+
+En el caso de una caché directa, no cabe ninguna duda, puesto que cada bloque sólo puede alojarse en un determinado marco. Pero en el caso de memorias con una asociatividad mayor, el reemplazamiento puede hacerse con distintos tipos de políticas.
+
+\begin{itemize}
+  \item \textbf{Aleatoria:} se utiliza un generador de números aleatorios para escoger el bloque que se reemplaza.
+  \item \textbf{Least Recently Used (LRU):} se escoge el bloque que lleva más tiempo sin utilizarse. Asi se minimiza la probabilidad de sustituir un bloque que vaya a necesitarse en el futuro.
+  \item \textbf{First In, First out (FIFO):} se reemplaza el bloque que lleva más tiempo en la caché.
+\end{itemize}
+
+\subsubsection*{Política de escritura}
+
+Las escrituras llevan más tiempo ya que no pueden solaparse con la comparación de las etiquetas como se hace con las lecturas. En muchos casos se recupera la información de un marco determinado de caché antes de saber si el bloque que está ubicado en él es el que se está buscando. Esto sólo puede hacerse con operaciones de lectura, ya que si finalmente el bloque no es el adecuado, no se ha modificado sun contenido.
+
+Pero una operación de escritura sólo puede hacerse si la comparación de etiquetas da como resultado que el bloque ubicado en ese marco es el que se estaba buscando; no se puede hacer trabajo en paralelo:
+
+\begin{itemize}
+  \item \textbf{Escritura directa:} cuando se modifica una palabra con una instrucción de almacenamiento, se realiza la escritura en el primer nivel de caché y en el siguiente nivel de la jerarquía.
+  \item \textbf{Post-Escritura:} cuando se modifica una palabra sólo se hace en el primer nivel de la memoria caché. Cuando este bloque modificado sea reemplazado, se actualizará el contenido dle nivel siguiente. Para no actualizar la memoria con cada reemplazamiento que se haga, suele utilizarse un bit que indica si el bloque que está en cache ha sido modificado (sucio) y por lo tanto debe actualizarse en memoria, o no (limpio).
+\end{itemize}
+
+Por último, en el caso de algunas jerarquías de memoria, para evitar la penalización extra que las escrituras implican se ignoran los fallos de escritura, especialmente en el caso de las memorias de escritura directa.
+
+Por lo tanto suelen encontrarse dos opciones:
+
+\begin{itemize}
+  \item \textbf{Write Allocate:} los fallos de escritura se comportan como los fallos de lectura, se trae el bloque que ha provocado el fallo a la memoria caché y se realiza en función de la política utilizada. Habitual con Post-Escritura.
+  \item \textbf{No-write Allocate:} cuando se produce un fallo de escritura, el bloque se modifica directamente en el siguiente nivel de la jerarquía de memoria y no se trae a la caché. Habitual con Escritura directa.
+\end{itemize}

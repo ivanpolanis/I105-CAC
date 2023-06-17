@@ -1,0 +1,103 @@
+\section{Buses}
+
+Un computador es una red de módulos elementales. Por consiguiente, deben existir lineas para interconectar estos módulos.
+
+Existen distintos tipos de interconexiones para los distintos tipos de unidades:
+
+\begin{itemize}
+  \item \textbf{Memoria:} un módulo de memoria está constituido por N palabras de la misma longitud. A cada palabra se le asigna una única dirección numérica (entre 0 y N-1). Una palabra de datos puede leerse de o escribirse en memoria. El tipo de operación se indica mediante las señales de control \textit{Read} y \textit{Write}. La posición de memoria para la operación se especifica mediante una dirección.
+  \item \textbf{Módulo de E/S:} Hay dos tipos de operaciones, leer y escribir. Además, un módulo de E/S puede controlar más de un dispositivo externo. Nos referiremos a cada una de estas interfaces con un dispositivo externo con el nombre de \textit{puerto}, y se le asignara una dirección a cada uno. Por otra parta, existen líneas externas de datos para la entrada y la salida de datos por un dispositivo externo. Por último, un módulo de E/S puede enviar señales de interrupción al procesador.
+  \item\textbf{Procesador:} el procesador lee instrucciones y datos, escribe datos una vez los ha procesado, y utiliza ciertas señales para controlar el funcionamiento del sistema. También puede recibir señales de interrupción.
+\end{itemize}
+
+\subsection{Interconexión con buses}
+
+Un bus es un camino de comunicación entre dos o más dispositivos. Una característica clave de un bus es que se trata de un medio de transmisión compartido. Al bus se conectan varios dispositivos, y cualquier señal transmitida por uno de esos dispositivos está disponible para que los otros dispositivos conectados al bus puedan acceder a ella. Solo un dispositivo puede transmitir con éxito en un momento dado.
+
+\subsubsection{Estructura del bus}
+
+El \textbf{bus del sistema} está constituido, usualmente, por entre cincuenta y cien lineas. A cada línea se le asigna un significado o una función particular. Aunque existen diseños de buses muy diversos, se suelen clasificar en tres grupos funcionales:
+
+\subsubsection*{Líneas de datos} 
+
+Proporcionan un camino para transmitir  datos entre los módulos del sistema. El conjunto constituido por estas líneas se denomina \textbf{bus de datos}. El bus de datos puede incluir entre 32 y cientos de lineas, cuyo número se conoce como \textit{anchura} del bus de datos. Puesto que cada línea solo puede transportar un bit cada vez, el número de líneas determina cuántos bits se pueden transferir al mismo tiempo.
+
+\subsubsection*{Líneas de dirección}
+
+Se utilizan para designar la fuente o el destino del dato situado en el bus de datos. Claramente, la anchura del bus de direcciones determina la máxima capacidad de memoria posible en el sistema. Además, las líneas de direcciones generalmente se utilizan también para direccionar los puestos de E/S dentro de un módulo. Usualmente, los bits de orden más alto se utilizan para seleccionar una posición de memoria o un puerto de E/S dentro de un módulo.
+
+\subsubsection*{Lineas de control}
+
+Se utilizan para controlar el acceso y el uso de las líneas de datos y de direcciones. Puesto que las líneas de datos y de direcciones son compartidas por todos los componentes, debe existir una forma de controlar su uso. Las señales de control transmiten tanto órdenes como información de temporización entre los módulos. Las señales de temporización indican la validez de los datos y las direcciones. Las señales de órdenes especifican las operaciones a realizar.
+
+\subsubsection{¿Cómo es un bus?}
+
+Físicamente, el bus de sistema es de hecho un conjunto de conductores eléctricos paralelos. Estos conductores son líneas de metal grabadas en una tarjeta. El bus se extiende a través de todos los componentes del sistema, cada uno de los cuales se conecta a algunas o a todas las líneas del bus.
+
+Cada uno de los componentes principales del sistema ocupa una o varias tarjetas y se conecta al bus a través de esas ranuras. Los sistemas actuales tienden a tener sus componentes principales en la misma tarjeta y los circuitos integrados incluyen más elementos. Asi, el bus que conecta el procesador y la memoria caché se integra con el microprocesador junto con el procesador y la caché (on-chip), y el bus que conecta el procesador con la memoria y otros componentes se incluye en la tarjeta (on-board).
+
+\subsubsection{Jerarquías de búses múltiples}
+
+Si se conecta un gran número de dispositivos al bus, las prestaciones pueden disminuir. Hay dos causas principales:
+
+\begin{itemize}
+  \item En general, a más dispositivos conectados al bus, mayor es el retardo de propagación. Este retardo determina el tiempo que necesitan los dispositivos para coordinarse en el uso del bus.
+  \item El bus puede convertirse en un cuello de botella a medida que las peticiones de transferencia acumuladas se aproximan a la capacidad del bus.
+\end{itemize}
+
+Por consiguiente, la mayoría de los computadores utilizan varios buses, normalmente organizados jerárquicamente. 
+
+\begin{itemize}
+  \item \textbf{Bus del sistema y bus de memoria:} son los que conectan el procesador con el resto del sistema y la memoria principal con el controlador de memoria respectivamente. Se trata de buses rápidos y cortos, propietarios y optimizados para arquitecturas y diseños específicos. Esta optimización es posible qa que a estos buses se conectan un número fijo de dispositivos de prestaciones conocidas.
+  \item \textbf{Buses de expansion:} se trata de buses más largos y lentos, abiertos, accesibles por el usuario y a los que se conectan un número indeterminado de dispositivos de prestaciones desconocidas muy diferentes entre sí.
+\end{itemize}
+
+Es posible conectar controladores de E/S directamente al bus de sistema. Una solución más eficiente consiste en utilizar uno o más buses de expansión. La interfaz del bus de expansión regula las transferencias de datos entre el bus de sistema y los controladores conectados al bus de expansión. Esta disposición permite conectar al sistema una amplia variedad de dispositivos de E/S y al mismo tiempo aislar el tráfico de información entre la memoria y el procesador del tráfico correspondiente a la E/S.
+
+Esta arquitectura de buses tradicional es razonablemente eficiente, pero muestra su debilidad a medida que los dispositivos de E/S ofrecen prestaciones cada vez mayores. La respuesta común a esta situación, por parte de la industria, ha sido proponer un bus de alta velocidad que está estrechamente integrado con el resto del sistema, y requiere solo un adaptador (bridge) entre el bus del procesador y el bus de alta velocidad.
+
+\subsubsection*{Tipos de buses}
+
+Los \textbf{buses dedicados}, usan líneas separadas para direcciones y para datos. Suelen tener 16 líneas de direcciones y 16 líneas de datos. Tienen una línea de control de lectura ó escritura.
+
+Los \textbf{buses multiplexados}, usa las mismas líneas, tienen 16 líneas que pueden ser tanto para direcciones como para datos, una línea de control para escritura ó lectura y una línea de control para definir direcciones ó datos.
+
+\subsubsection*{Arbitraje del bus}
+
+El control del bus puede necesitar más de un módulo. Solamente una unidad puede transmitir a través del bus en un instante dado. Los métodos de arbitraje se pueden clasificar en:
+
+\begin{itemize}
+  \item \textbf{Centralizado:} un único dispositivo hardware, denominado \textit{controlador del bus} o \textit{árbitro}, es responsable de asignar tiempos en el bus. El dispositivo puede estar en un módulo separado o ser parte el procesador.
+  \item \textbf{Distribuido:} no existe un controlador central. En su lugar, cada módulo dispone de lógica para controla el acceso y los módulos actúan conjuntamente para compartir el bus. 
+\end{itemize}
+
+En ambos métodos de arbitraje, el propósito es designar un dispositivo, el procesador o un módulo de E/S como maestro del bus. El maestro podría entonces iniciar una transferencia de datos con otro dispositivo, que actúa como esclavo en este intercambio concreto.
+
+\subsubsection*{Temporización}
+
+El término temporización hace referencia a la forma en la que se coordinan los eventos en el bus. Los buses utilizan temporización síncrona o asíncrona.
+
+\begin{itemize}
+  \item \textbf{Temporización síncrona:} La presencia de un evento está determinada por un reloj. El bus incluye una línea de reloj. Un intervalo desde un \textit{uno} seguido de otro a \textit{cero} se conoce como ciclo de bus. Todos los dispositivos del bus pueden leer la línea de reloj. Suele sincronizar en el flanco de subida. La mayoría de los eventos se prolongan durante un único ciclo de reloj.
+  \item \textbf{Temporización asíncrona:} la presencia de un evento en el bus es consecuencia y depende de que se produzca un evento previo. El módulo de memoria correspondiente decodifica la dirección y responde proporcionando el dato en la línea de datos. Una vez estabilizadas las líneas de datos, el módulo de memoria activa la línea de \textit{reconocimiento} para indicar al procesador que el dato está disponible. Cuando el maestro ha leído el dato de las líneas correspondientes, deshabilita la señal de lectura. Esto hace que el módulo de memoria libere las líneas de tatos y reconocimiento. Por último, una vez se ha desactivado la línea de reconocimiento, el procesador quita la información de dirección de las líneas correspondientes.
+\end{itemize}
+
+\subsection{Diseño de buses de E/S}
+
+Es necesario diseñar el protocolo de transferencia que gobierna la operación del bus y especifica cómo se utilizan las señales de datos, control y direcciones para realizar una transferencia de información completa.
+
+Además es necesario decidir el tipo de protocolo que sincroniza las transferencias de información y en este casi si que existe un conjunto muy reducido de alternativas. En los buses sincrónicos las transferencias están gobernadas por una única señal de reloj compartida por todos los dispositivos que se conectan al bus, de manera que cada transferencia se realiza en un número fijo de ciclos de reloj.
+
+Los protocolos sincrónicos son muy sencillos y sólo necesitan una señal de reloj. Pero hay que adaptar esta señal al dispositivo más lento y además es necesario distribuirla a todos los dispositivos conectados al bus. También existen confirmaciones en las transferencias por lo que es difícil implementar mecanismos de detección y corrección de errores. Con los protocolos asíncronos no existen estos inconvenientes, pero son menos eficientes debido a la necesidad de intercambiar señales de control.
+
+Por eso surgen los buses semisíncronos, que combinan las ventajas de los dos anteriores, se comportan como síncronos para dispositivos rápidos y como asíncronos para dispositivos lentos.
+
+\subsection{PCI}
+
+El bus \textbf{PCI} es un bus muy popular de ancho de banda elevado, independiente del procesador, que se puede utilizar como bus de periféricos o bus para una arquitectura de entreplanta. Comparado con otras especificaciones comunes de bus, el PCI proporciona mejores prestaciones para los subsistemas de E/S de alta velocidad.  El PCI ha sido diseñado específicamente para ajustarse, económicamente a los requisitos de E/S de los sistemas actuales; se implementa con muy pocos circuitos integrados y permite que otros buses se conecten al bus PCI.\@
+
+El PCI esta diseñado para permitir una cierta variedad de configuraciones basadas en microprocesadores, incluyendo sistemas tanto de uno como de varios procesadores. Por consiguiente, proporciona un conjunto de funciones de uso general. Utiliza temporización síncrona y un esquema de arbitraje centralizado.
+
+\subsection{Evolución jerarquía de buses}
+
+\textit{Ver páginas 117 a 120 de Diseño y Evaluación de arquitectura de computadores.}
