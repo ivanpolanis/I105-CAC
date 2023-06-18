@@ -6,7 +6,7 @@ Algunos de los principales avances desde el nacimiento del computador son:
   \item \textbf{El concepto de familia:} introducido por IBM en su System/360 em 1964. El concepto de familia separa la arquitectura de una máquina de su implementación. Se ofrece un conjunto de computadores, con distintas características en cuanto a precio/prestaciones, que presentan al usuario la misma arquitectura.
   \item \textbf{Unidad de control micro programada:} propuesta por Wilkes en 1951, e introducida por iBM en la línea S/360 en 1964. La micro programación facilita la tarea de diseñar e implementar la unidad de control y da soporte al concepto de familia.
   \item \textbf{Memoria caché:} introducida en 1968 por IBM.\@ La introducción de este elemento en la jerarquía de memoria mejoró las prestaciones de manera espectacular.
-  \item \textbf{Segmentación de cauce:} una manera de introducir paralelismo en la naturaleza esencialmente secuencial de un por instrucciones máquina.
+  \item \textbf{Segmentación de cauce:} una manera de introducir procesamiento simultaneo en la naturaleza esencialmente secuencial de un por instrucciones máquina.
 \end{itemize}
 
 La arquitectura RISC se aparta de manera drástica de la tendencia histórica en la arquitectura del procesador. Un análisis de la arquitectura RISC involucra la mayoría de los asuntos importantes de organización y arquitectura de computadores.
@@ -79,7 +79,7 @@ A primera vista, el uso de un conjunto amplio de registros debería reducir la n
 
 Una llamada a un procedimiento hace que el procesador conmute automáticamente a una ventana de registros distinta de tamaño fijo, en lugar de salvaguardar los registros en memoria. Las ventanas de procedimientos adyacentes están parcialmente solapadas para permitir el paso de parámetros.
 
-La ventana se divide en tres áreas de tamaño fijo. Los registros de parámetros contienen parámetros pasados al procedimiento actual desde el procedimiento que lo llamó, y los resultados a devolver a este. Los registros locales se usan para variables locales, según la asignación que realice el compilador. Los registros locales se usan para variables locales, según la asignación que realice el compilador. Los registros temporales se usan para intercambiar parámetros y resultados con el siguiente nivel más bajo (el procedimiento llamado por el procedimiento en curso). Los registros temporales de un nivel son físicamente los mismos que los registros de parámetros del nivel más bajo adyacente. Este solapamiento posibilita que los parámetros se pasen sin que exista una transferencia de datos real.
+La ventana se divide en tres áreas de tamaño fijo. Los registros de parámetros contienen parámetros pasados al procedimiento actual desde el procedimiento que lo llamó, y los resultados a devolver a este. Los registros locales se usan para variables locales, según la asignación que realice el compilador. Los registros temporales se usan para intercambiar parámetros y resultados con el siguiente nivel más bajo (el procedimiento llamado por el procedimiento en curso). Los registros temporales de un nivel son físicamente los mismos que los registros de parámetros del nivel más bajo adyacente. Este solapamiento posibilita que los parámetros se pasen sin que exista una transferencia de datos real.
 
 Para manejar cualquier patrón posible de llamadas y retornos, el número de ventanas de registros tendría que ser ilimitado. En lugar de eso, las ventanas de registros se pueden usar para contener unas pocas, las más recientes, activaciones de procedimientos. Las activaciones más antiguas han de salvaguardarse en memoria y restaurarse más tarde cuando la profundidad de anidamiento disminuya.
 
@@ -99,17 +99,22 @@ Una alternativa es incorporar al procesador un conjunto de registros globales. E
 
 \subsubsection*{Un amplio banco de registros frente a una caché}
 
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|l|l|}
-    \cline{1-2}
-    \multicolumn{1}{|c|}{\textbf{Banco de registros amplio}} & \multicolumn{1}{c|}{\textbf{Caché}} \\ \cline{1-2}
-                                                             Todos los datos escalares locales & Datos escalares locales recientemente usados \\ \cline{1-2}
-                                                             Variables individuales & Bloques de memoria \\ \cline{1-2}
-                                                             Variables globales asignadas por el compilador & Variables recientemente \\ \cline{1-2}
-                                                             Salvaguarda basadas en la profundidad de anidamiento & Salvaguarda basadas en el algoritmo de reemplazo \\ \cline{1-2}
-                                                             Direccionamiento a registros & Direccionamiento a memoria \\ \cline{1-2}
-  \end{tabular}
+\begin{table}
+\centering
+\begin{tblr}{
+  width = \linewidth,
+  colspec = {Q[488]Q[452]},
+  row{1} = {c},
+  hlines,
+  vlines,
+}
+\textbf{Banco de registros amplio}                   & \textbf{Caché}                                   \\
+Todos los datos escalares locales                    & Datos escalares locales recientemente usados     \\
+Variables individuales                               & Bloques de memoria                               \\
+Variables globales asignadas por el compilador       & Variables recientemente                          \\
+Salvaguarda basadas en la profundidad de anidamiento & Salvaguarda basadas en el algoritmo de reemplazo \\
+Direccionamiento a registros                         & Direccionamiento a memoria                       
+\end{tblr}
 \end{table}
 
 \subsection{Optimización de registros basada en el compilador}

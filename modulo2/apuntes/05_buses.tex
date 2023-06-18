@@ -6,7 +6,7 @@ Existen distintos tipos de interconexiones para los distintos tipos de unidades:
 
 \begin{itemize}
   \item \textbf{Memoria:} un módulo de memoria está constituido por N palabras de la misma longitud. A cada palabra se le asigna una única dirección numérica (entre 0 y N-1). Una palabra de datos puede leerse de o escribirse en memoria. El tipo de operación se indica mediante las señales de control \textit{Read} y \textit{Write}. La posición de memoria para la operación se especifica mediante una dirección.
-  \item \textbf{Módulo de E/S:} Hay dos tipos de operaciones, leer y escribir. Además, un módulo de E/S puede controlar más de un dispositivo externo. Nos referiremos a cada una de estas interfaces con un dispositivo externo con el nombre de \textit{puerto}, y se le asignara una dirección a cada uno. Por otra parta, existen líneas externas de datos para la entrada y la salida de datos por un dispositivo externo. Por último, un módulo de E/S puede enviar señales de interrupción al procesador.
+  \item \textbf{Módulo de E/S:} Hay dos tipos de operaciones, leer y escribir. Además, un módulo de E/S puede controlar más de un dispositivo externo. Nos referiremos a cada una de estas interfaces con un dispositivo externo con el nombre de \textit{puerto}, y se le asignara una dirección a cada uno. Por otra parte, existen líneas externas de datos para la entrada y la salida de datos por un dispositivo externo. Por último, un módulo de E/S puede enviar señales de interrupción al procesador.
   \item\textbf{Procesador:} el procesador lee instrucciones y datos, escribe datos una vez los ha procesado, y utiliza ciertas señales para controlar el funcionamiento del sistema. También puede recibir señales de interrupción.
 \end{itemize}
 
@@ -24,7 +24,7 @@ Proporcionan un camino para transmitir  datos entre los módulos del sistema. El
 
 \subsubsection*{Líneas de dirección}
 
-Se utilizan para designar la fuente o el destino del dato situado en el bus de datos. Claramente, la anchura del bus de direcciones determina la máxima capacidad de memoria posible en el sistema. Además, las líneas de direcciones generalmente se utilizan también para direccionar los puestos de E/S dentro de un módulo. Usualmente, los bits de orden más alto se utilizan para seleccionar una posición de memoria o un puerto de E/S dentro de un módulo.
+Se utilizan para designar la fuente o el destino del dato situado en el bus de datos. Claramente, la anchura del bus de direcciones determina la máxima capacidad de memoria posible en el sistema. Además, las líneas de direcciones generalmente se utilizan también para direccionar los puertos de E/S dentro de un módulo. Usualmente, los bits de orden más alto se utilizan para seleccionar una posición de memoria o un puerto de E/S dentro de un módulo.
 
 \subsubsection*{Lineas de control}
 
@@ -48,7 +48,7 @@ Si se conecta un gran número de dispositivos al bus, las prestaciones pueden di
 Por consiguiente, la mayoría de los computadores utilizan varios buses, normalmente organizados jerárquicamente. 
 
 \begin{itemize}
-  \item \textbf{Bus del sistema y bus de memoria:} son los que conectan el procesador con el resto del sistema y la memoria principal con el controlador de memoria respectivamente. Se trata de buses rápidos y cortos, propietarios y optimizados para arquitecturas y diseños específicos. Esta optimización es posible qa que a estos buses se conectan un número fijo de dispositivos de prestaciones conocidas.
+  \item \textbf{Bus del sistema y bus de memoria:} son los que conectan el procesador con el resto del sistema y la memoria principal con el controlador de memoria respectivamente. Se trata de buses rápidos y cortos, propietarios y optimizados para arquitecturas y diseños específicos. Esta optimización es posible ya que a estos buses se conectan un número fijo de dispositivos de prestaciones conocidas.
   \item \textbf{Buses de expansion:} se trata de buses más largos y lentos, abiertos, accesibles por el usuario y a los que se conectan un número indeterminado de dispositivos de prestaciones desconocidas muy diferentes entre sí.
 \end{itemize}
 
@@ -67,7 +67,7 @@ Los \textbf{buses multiplexados}, usa las mismas líneas, tienen 16 líneas que 
 El control del bus puede necesitar más de un módulo. Solamente una unidad puede transmitir a través del bus en un instante dado. Los métodos de arbitraje se pueden clasificar en:
 
 \begin{itemize}
-  \item \textbf{Centralizado:} un único dispositivo hardware, denominado \textit{controlador del bus} o \textit{árbitro}, es responsable de asignar tiempos en el bus. El dispositivo puede estar en un módulo separado o ser parte el procesador.
+  \item \textbf{Centralizado:} un único dispositivo hardware, denominado \textit{controlador del bus} o \textit{árbitro}, es responsable de asignar tiempos en el bus. El dispositivo puede estar en un módulo separado o ser parte del procesador.
   \item \textbf{Distribuido:} no existe un controlador central. En su lugar, cada módulo dispone de lógica para controla el acceso y los módulos actúan conjuntamente para compartir el bus. 
 \end{itemize}
 
@@ -79,7 +79,7 @@ El término temporización hace referencia a la forma en la que se coordinan los
 
 \begin{itemize}
   \item \textbf{Temporización síncrona:} La presencia de un evento está determinada por un reloj. El bus incluye una línea de reloj. Un intervalo desde un \textit{uno} seguido de otro a \textit{cero} se conoce como ciclo de bus. Todos los dispositivos del bus pueden leer la línea de reloj. Suele sincronizar en el flanco de subida. La mayoría de los eventos se prolongan durante un único ciclo de reloj.
-  \item \textbf{Temporización asíncrona:} la presencia de un evento en el bus es consecuencia y depende de que se produzca un evento previo. El módulo de memoria correspondiente decodifica la dirección y responde proporcionando el dato en la línea de datos. Una vez estabilizadas las líneas de datos, el módulo de memoria activa la línea de \textit{reconocimiento} para indicar al procesador que el dato está disponible. Cuando el maestro ha leído el dato de las líneas correspondientes, deshabilita la señal de lectura. Esto hace que el módulo de memoria libere las líneas de tatos y reconocimiento. Por último, una vez se ha desactivado la línea de reconocimiento, el procesador quita la información de dirección de las líneas correspondientes.
+  \item \textbf{Temporización asíncrona:} la presencia de un evento en el bus es consecuencia y depende de que se produzca un evento previo. El módulo de memoria correspondiente decodifica la dirección y responde proporcionando el dato en la línea de datos. Una vez estabilizadas las líneas de datos, el módulo de memoria activa la línea de \textit{reconocimiento} para indicar al procesador que el dato está disponible. Cuando el maestro ha leído el dato de las líneas correspondientes, deshabilita la señal de lectura. Esto hace que el módulo de memoria libere las líneas de datos y reconocimiento. Por último, una vez se ha desactivado la línea de reconocimiento, el procesador quita la información de dirección de las líneas correspondientes.
 \end{itemize}
 
 \subsection{Diseño de buses de E/S}

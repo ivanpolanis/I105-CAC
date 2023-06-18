@@ -74,7 +74,7 @@ Con el \textbf{renombramiento de registros}, el hardware del procesador asigna d
 
 El proceso de captación de instrucciones, que incluye la predicción de saltos, se usa para formar un flujo dinámico de instrucciones. Se examinan las dependencias de este flujo, y el procesador puede eliminar las que sean artificiales. En esta ventana, las instrucciones ya no forman un flujo secuencial sino que están estructuradas de acuerdo a sus dependencias de dots verdaderas. El procesador lleva a cabo la etapa de ejecución de cada instrucción en un orden determinado por las dependencias de datos verdaderas y la disponibilidad de los recursos hardware. Por último, las instrucciones se vuelven a poner conceptualmente en un orden secuencial y sus resultados se almacenan.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{ProcesamientoSE.png}
   \caption{Representación conceptual del procesamiento superescalar}
@@ -101,3 +101,102 @@ El comportamiento debería ser idéntico al que tendría la misma computadora no
   \item La que origina la excepción y siguientes se abortan.
   \item Tras la rutina de tratamiento se comienza por la que originó la excepción.
 \end{itemize}
+
+\subsection{Pentium 4}
+
+Aunque el concepto de diseño superescalar se asocia generalmente con la arquitectura RISC, se pueden aplicar los mismos principios superescalares a una máquina CISC.\@ El ejemplo más notable de ello tal vez sea el Pentium.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{Pentium4.png}
+  \caption{Diagrama de bloques del Pentium 4}
+\end{figure}
+
+El funcionamiento del Pentium 4 se puede resumir como sigue:
+
+\begin{itemize}
+  \item El procesador capta instrucciones de memoria en el orden en que aparecen en el programa estático.
+  \item Cada instrucción se traduce en una o más instrucciones RISC de tamaño fijo conocidas como \textbf{microoperaciones} o \textbf{micro-ops}.
+  \item El procesador ejecuta las micro-ops en una organización de cauce superescalar, de modo se pueden ejecutar desordenadas.
+  \item El procesador entrega los resultados de la ejecución de cada micro-op al conjunto de registros, en el orden del flujo del programa original.
+\end{itemize}
+
+En realidad, la arquitectura del Pentium 4 consta de una envoltura CISC con un núcleo RISC interno. Las micro-ops RISC internas pasan a través de un cauce con al menos veinte etapas; en algunos casos, las micro-ops necesitan múltiples etapas de ejecución, lo que se traduce en un cauce aún más largo.
+
+\subsection{Arquitectura IA-64}
+
+Intel se asocia con HP para desarrollar una nueva arquitectura de 64 bits, llamada IA-64. La arquitectura IA-64 no es una ampliación a 64 bits de la arquitectura de 32 bits x86 de Intel. La IA-64 aprovecha la enorme circuitería y la gran velocidad disponibles en las más recientes generaciones de microchips gracias a la utilización sistemática del paralelismo.
+
+\subsubsection{Motivación}
+
+Los conceptos básicos en los que se fundamenta la arquitectura IA-64 son los siguientes:
+
+\begin{itemize}
+  \item Paralelismo en las instrucciones que queda explícito en las instrucciones máquina, en lugar de depender del procesador en tiempo de ejecución.
+  \item Palabras de instrucción largas o muy largas (LIW\footnote[1]{long instruction word}/VLIW\footnote[2]{very long instruction word}).
+  \item Ejecución de saltos basada en predicados (concepto diferente al de predicción de saltos).
+  \item Carga especulativa.
+\end{itemize}
+
+Intel y HP hacen referencia a esta combinación de conceptos con el nombre de computación con instrucciones explícitamente paralelas (EPIC). La arquitectura IA-64 consiste en un repertorio de instrucciones real destinado a ser implementado usando la tecnología EPIC.\@ El primer producto de Intel basado en IA-64 es conocido con el nombre de \textbf{Itanium}.
+
+\begin{table}[h]
+\centering
+\begin{tblr}{
+  width = \linewidth,
+  colspec = {Q[462]Q[479]},
+  row{1} = {c},
+  hlines,
+  vlines,
+}
+\textbf{Superescalar}                                                                                          & \textbf{IA-64}                                                                                                            \\
+Instrucciones de tipo RISC, una por palabra                                                                    & Instrucciones de tipo RISC puestas en grupos de tres                                                                      \\
+Multiples unidades de ejecución en paralelo                                                                    & Múltiples unidades de ejecución en paralelo                                                                               \\
+Reordena y optimiza el flujo de instrucciones en tiempo de ejecución                                           & Reordena y optimiza el flujo de instrucciones en tiempo de compilación.                                                   \\
+Predicción de saltos con ejecución especulativa de un camino.                                                  & Ejecución especulativa de los dos caminos de una bifurcación.                                                             \\
+{Carga de datos desde memoria solo cuando es necesario, e intenta encontrar los datos primero en las cachés.} & {Carga datos especulativamente antes de que se necesiten, y sigue intentando encontrar los datos primero en las cachés.} 
+\end{tblr}
+\end{table}
+
+Intel y HP han propuesto un planteamiento de diseño global que permite la utilización eficaz de un procesador con muchas unidades de ejecución en paralelos. El corazón de este nuevo enfoque es el concepto de paralelismo explícito. En esta aproximación, el compilador planifica estáticamente las instrucciones en tiempo de compilación, en lugar de que lo haga dinámicamente el procesador en tiempo de ejecución. El compilador determina qué instrucciones pueden ejecutarse en paralelo e incluye esta información en la instrucción máquina. El procesador usa esa información para llevar a cabo la ejecución paralela. Una ventaja de esta aproximación es que el procesador EPIC no requiere tanta circuitería compleja como un procesador superescalar capaz de ejecutar instrucciones sin orden. Además, mientras que el procesador tiene que determinar la posibilidad de una potencial ejecución en paralelo en cuestión de nanosegundos, el compilador dispone de un plazo varios órdenes de magnitud mayor para examinar el código con detenimiento y estudiar el programa globalmente.
+
+\subsubsection{Organización general}
+
+Como cualquier arquitectura de procesador, la IA-64 puede implementarse con diversas organizaciones. Sus características más importantes son:
+
+\begin{itemize}
+  \item \textbf{Gran numero de registros:} el formato de instrucción de la arquitectura IA-64 supone el empleo de 256 registros, 126 registros de 64 de uso general para uso con enteros, con datos lógicos y para propósito general, y 128 registros de 82 bits para su uso con coma flotante y gráficos. También hay 64 bits de predicado de un bit, usados para la ejecución con predicados.
+  \item \textbf{Multiples unidades de ejecución:} una máquina superescalar típica puede tener cuatro cauces paralelos, empleando cuatro unidades de ejecución en paralelo tanto para la parte de enteros del procesador como para la parte de la coma flotantes. Se espera que la IA-64 se implemente en sistemas con ocho o más unidades paralelas.
+\end{itemize}
+
+En la arquitectura IA-64 se definen cuatro tipos de unidades de ejecución:
+
+\begin{itemize}
+  \item \textbf{I:} para instrucciones aritméticas con enteros, de desplazamiento y suma, lógicas de comparación y multimedia con enteros.
+  \item \textbf{M:} cargas y almacenamientos entre registros y memoria más algunas operaciones de la ALU con enteros.
+  \item \textbf{B:} instrucciones de salto.
+  \item \textbf{F:} instrucciones de coma flotante.
+\end{itemize}
+
+\subsubsection*{Formato de instrucción}
+
+La arquitectura IA-64 define un \textbf{paquete} de 128 bits que contiene tres instrucciones, llamadas \textbf{silabas}, y un campo plantilla. El procesador puede captar uno o más paquetes de instrucciones a la vez; y cada captación indica qué instrucciones se pueden ejecutar en paralelo. La interpretación de este campo no se limita a un único paquete. Por el contrario, el procesador puede examinar varios paquetes para determinar qué instrucciones pueden ejecutarse en paralelo. 
+
+Las instrucciones agrupadas no tienen que estar en el orden original del programa. Además, debido a la flexibilidad del campo plantilla, el compilador puede mezclas instrucciones dependientes e independientes en el mismo paquete.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.6\textwidth]{InstruccionesIA-64.png}
+  \caption{Formato de instrucción de la arquitectura IA-64}
+\end{figure}
+
+El valor de plantilla tiene dos propósitos:
+
+\begin{itemize}
+  \item El campo especifica la correspondencia de las instrucciones con los tipos de unidades de ejecución. No son posibles todas las correspondencias de instrucciones con unidades.
+  \item El campó indica la presencia de posibles \textbf{paradas}. Una parada indica al hardware que una o más instrucciones anteriores a la parada pueden tener ciertos tipos de dependencias de recursos con una o más instrucciones posteriores a la parada.
+\end{itemize}
+
+\subsubsection*{Saltos predicados}
+
+Los saltos predicados son una técnica de compilación. El compilador elimina saltos del programa usando ejecución condicional, es necesario soporte de hardware. Se deja que ambas ramas de un salto condicional se ejecuten en paralelo.

@@ -36,7 +36,7 @@ Al acceder a memoria principal también pueden producirse aciertos y fallos, ya 
 
 La memoria principal se divide en \textbf{páginas o segmentos}, de mayor tamaño que los bloques de caché. Cuando se produce un fallo con una página o segmento que no se encuentra en la memoria principal, deberá traerse de la memoria virtual.
 
-La principal diferencia con los fallos de la memoria caché está en que la penalización por este tipo de fallos es bastante grande, ya que la memoria virtual es la más lenta de toda la jerarquía. Por ello el procesador suele pasara  realizar otro tipo de tareas, realizando un cambio de contexto, hasta que la página o segmento esté disponible en la memoria principal.
+La principal diferencia con los fallos de la memoria caché está en que la penalización por este tipo de fallos es bastante grande, ya que la memoria virtual es la más lenta de toda la jerarquía. Por ello el procesador suele pasar a  realizar otro tipo de tareas, realizando un cambio de contexto, hasta que la página o segmento esté disponible en la memoria principal.
 
 \subsection{Mecanismo completo de acceso a memoria}
 
@@ -48,7 +48,7 @@ Si por el contrario, se produce un fallo, se busca la palabra en el siguiente ni
 
 La resolución de un fallo siempre implica buscar el bloque necesario en la memoria principal.
 
-Cu¿ando se realice el acceso, todo el bloque en el que se incluye la palabra solicitada por el procesador se envía a la memoria caché para resolver su fallo, y el acceso puede completarse con éxito.
+Cuando se realice el acceso, todo el bloque en el que se incluye la palabra solicitada por el procesador se envía a la memoria caché para resolver su fallo, y el acceso puede completarse con éxito.
 
 Si por el contrario, la palabra no se encuentra en memoria principal y desde un principio no se pudo traducir su dirección virtual a dirección física por este motivo, se debe resolver el fallo de página o segmento desde la memoria virtual. El sistema operativo realiza un cambio de contexto para que otro proceso pase a ejecutarse en el procesador mientras se trae desde memoria virtual la página o segmento, que hace falta para resolver el fallo. Una vez que esté en memoria principal esta página o segmento, ya puede llevarse el bloque correspondiente a memoria caché y cuando el proceso que había provocado el fallo vuelva a pasar a ejecución, el acceso puede completarse con éxito.
 
@@ -97,7 +97,7 @@ El segundo aspecto a tener en cuenta es el tamaño de marco que se va a manejar.
 
 En muchos casos, la segmentación del procesador obligará a dividir la caché de instrucciones y la de datos para evitar los riesgos estructurales entre las etapas de búsqueda de instrucción y las de acceso a memoria para la lectura o escritura de operandos/resultados.
 
-Por último, destacar dentro de la organización de la caché uno de los aspectos que más influye ene l rendimiento de la jerarquía de memoria: la implementación de cachés multinivel.
+Por último, destacar dentro de la organización de la caché uno de los aspectos que más influye en el rendimiento de la jerarquía de memoria: la implementación de cachés multinivel.
 
 Normalmente se utilizan dos niveles de memoria caché:
 
@@ -136,6 +136,7 @@ En el caso de una caché directa, no cabe ninguna duda, puesto que cada bloque s
   \item \textbf{Aleatoria:} se utiliza un generador de números aleatorios para escoger el bloque que se reemplaza.
   \item \textbf{Least Recently Used (LRU):} se escoge el bloque que lleva más tiempo sin utilizarse. Asi se minimiza la probabilidad de sustituir un bloque que vaya a necesitarse en el futuro.
   \item \textbf{First In, First out (FIFO):} se reemplaza el bloque que lleva más tiempo en la caché.
+  \item \textbf{Least Frequently Used (LFU):} esta política reemplaza el bloque que ha sido accedido menos veces en un período de tiempo determinado, es decir, a aquel que se accedió una menor cantidad de veces. Requiere controles de uso (hardware que lleve el conteo de cuantas veces se accedió a un dato de un bloque).
 \end{itemize}
 
 \subsubsection*{Política de escritura}
@@ -146,7 +147,7 @@ Pero una operación de escritura sólo puede hacerse si la comparación de etiqu
 
 \begin{itemize}
   \item \textbf{Escritura directa:} cuando se modifica una palabra con una instrucción de almacenamiento, se realiza la escritura en el primer nivel de caché y en el siguiente nivel de la jerarquía.
-  \item \textbf{Post-Escritura:} cuando se modifica una palabra sólo se hace en el primer nivel de la memoria caché. Cuando este bloque modificado sea reemplazado, se actualizará el contenido dle nivel siguiente. Para no actualizar la memoria con cada reemplazamiento que se haga, suele utilizarse un bit que indica si el bloque que está en cache ha sido modificado (sucio) y por lo tanto debe actualizarse en memoria, o no (limpio).
+  \item \textbf{Post-Escritura:} cuando se modifica una palabra sólo se hace en el primer nivel de la memoria caché. Cuando este bloque modificado sea reemplazado, se actualizará el contenido del nivel siguiente. Para no actualizar la memoria con cada reemplazamiento que se haga, suele utilizarse un bit que indica si el bloque que está en cache ha sido modificado (sucio) y por lo tanto debe actualizarse en memoria, o no (limpio).
 \end{itemize}
 
 Por último, en el caso de algunas jerarquías de memoria, para evitar la penalización extra que las escrituras implican se ignoran los fallos de escritura, especialmente en el caso de las memorias de escritura directa.
