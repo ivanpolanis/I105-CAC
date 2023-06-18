@@ -1,0 +1,19 @@
+\section{Procesamiento paralelo}
+
+\subsection{Organizaciones con varios procesadores}
+
+\subsubsection*{Tipos de sistemas paralelos}
+
+La taxonomia introducida por Flynn es todavía la forma más común de clasificar a los sistemas según sus capacidades de procesamiento paralelo. Flynn propuso las siguientes categorías o clases de computadoras:
+
+\begin{itemize}
+  \item \textbf{Single Instruction Single Data (SISD):} un único procesador interpreta una única secuencia de instrucciones para operar con los datos almacenados en una única memoria. Los computadores monoprocesador caen dentro de esta categoría.
+  \item \textbf{Single Instruction Multiple Data (SIMD):} una única máquina controla paso a paso la ejecución simultánea y sincronizada de un cierto número de elementos de proceso. Cada elemento de proceso tiene una memoria asociada, de forma que cada instrucción es ejecutada por cada procesador con un conjunto de datos diferentes. Los procesadores vectoriales y los matriciales pertenecen a esta categoría.
+  \item \textbf{Multiple Instruction Single Data (MISD):} se transmite una secuencia de datos a un conjunto de procesadores, cada uno de los cuales ejecuta una secuencia de instrucciones diferente. Esta estructura nunca ha sido implementada.
+  \item \textbf{Multiple Instruction Multiple Data (MIMD):} un conjunto de procesadores ejecuta simultáneamente secuencias de instrucciones diferentes con conjuntos de datos diferentes. Los SMP, los \textit{clusters} y los sistemas NUMA son ejemplos de esta categoría.
+\end{itemize}
+
+En la organización MIMD los procesadores son de uso general; cada uno es capaz de procesar todas las instrucciones necesarias para realizar las transformaciones apropiadas de los datos. Los computadores MIMD se pueden subdividir además según la forma que tienen los procesadores para comunicarse. Si los procesadores comparten una memoria común, entonces cada procesador accede a los programas y datos almacenados en la memoria compartida, y los procesadores se comunican unos con otros a través de esa memoria. La forma más común de este tipo de sistema se conoce como \textbf{multiprocesador simétrico (SMP)}. En un SMP, varios procesadores comparten una única memoria mediante un bus compartido u otro tipo de mecanismo de interconexión. Una característica distintiva de estos sistemas es que el tiempo de acceso a memoria principal es aproximadamente el mismo para cualquier procesador. Un desarrollo más reciente es la organización con \textbf{acceso no uniforme a memoria (NUMA)}. Como el propio nombre indica, el tiempo de acceso a zonas de memoria diferentes puede diferir en un computador NUMA.\@
+
+Un conjunto de computadores monoprocesador independientes o de SMP pueden interconectarse para formar un \textit{cluster}. La comunicación entre los computadores se realiza mediante conexiones fijas o mediante algún tipo de red.
+
