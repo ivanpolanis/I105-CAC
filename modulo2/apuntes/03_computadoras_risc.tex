@@ -1,4 +1,4 @@
-\section{Computadoras de repertorio reducido de instrucciones}
+\section{Computadoras de repertorio reducido de instrucciones}\label{sec:risc}
 
 Algunos de los principales avances desde el nacimiento del computador son:
 
@@ -39,13 +39,13 @@ Para comprender la línea de razonamiento de los partidarios de los RISC, comenz
 
 \subsubsection*{Operaciones}
 
-Existe una gran concordancia en los resultados de esta mezcla de lenguajes y aplicaciones. Las sentencias de asignación predominan, lo cual indica que el sencillo movimiento de datos tiene mucha importancia. También predominan las sentencias condicionales (IF, LOOP). Estas sentencias se implementen en el lenguaje máquina con alguna instrucción del tipo comparar y saltar. Esto indica que el mecanismo incluido en el repertorio de instrucciones para el control del secuenciamiento es importante.
+Existe una gran concordancia en los resultados de esta mezcla de lenguajes y aplicaciones. Las sentencias de asignación predominan, lo cual indica que el sencillo movimiento de datos tiene mucha importancia. También predominan las sentencias condicionales (IF, LOOP). Estas sentencias se implementan en el lenguaje máquina con alguna instrucción del tipo comparar y saltar. Esto indica que el mecanismo incluido en el repertorio de instrucciones para el control del secuenciamiento es importante.
 
 Estos resultados son instructivos para el diseñador del repertorio de instrucciones máquina, diciéndole qué tipo de sentencias tiene lugar más a menudo y por consiguiente deben ser implementadas de una forma óptima.
 
 \subsubsection*{Operandos}
 
-EL estudio de Patterson ya referenciado también consideró la frecuencia dinámica de aparición de distintas clases de variables. Los resultados, coherentes para programas en Pascal y en C, muestran que la mayoría de las referencias se hacen a variables escalares simples. Además, más del ochenta por ciento de los datos  eran variables locales. Asimismo, las referencias a matrices/estructuras requieren una referencia previa a su índice o puntero, que nuevamente suele ser un dato escalar local. Por consiguiente, hay un predominio de referencias a operandos escalares, y estos están muy localizados.
+El estudio de Patterson ya referenciado también consideró la frecuencia dinámica de aparición de distintas clases de variables. Los resultados, coherentes para programas en Pascal y en C, muestran que la mayoría de las referencias se hacen a variables escalares simples. Además, más del ochenta por ciento de los datos  eran variables locales. Asimismo, las referencias a matrices/estructuras requieren una referencia previa a su índice o puntero, que nuevamente suele ser un dato escalar local. Por consiguiente, hay un predominio de referencias a operandos escalares, y estos están muy localizados.
 
 Estos estudios reflejan la importancia de una arquitectura que se preste a un rápido acceso a operandos, dado que es una operación que se realiza con mucha frecuencia. El estudio de Patterson indica que un candidato fundamental a optimizar es el mecanismo de almacenamiento y acceso a variables escalares.
 
@@ -93,13 +93,13 @@ Para manejar cualquier patrón posible de llamadas y retornos, el número de ven
 
 Para tratar variables globales se sugieren dos opciones.
 
-La primera es que el compilador asigne posiciones de memoria a las variables declaradas como globales en un HLL, y que todas las instrucciones máquina que referencien esas variables declaradas como globales en un HLL, y que todas las instrucciones máquina que referencien esas variables usen operandos referenciados en memoria.
+La primera es que el compilador asigne posiciones de memoria a las variables declaradas como globales en un HLL, y que todas las instrucciones máquina que referencien esas variables usen operandos referenciados en memoria.
 
 Una alternativa es incorporar al procesador un conjunto de registros globales. Estos registros serían fijos en cuanto a su número y accesibles por todos los procedimientos. Se puede usar un esquema de numeración unificado para simplificar el formato de instrucción. Esto conlleva un hardware añadido, que se encarga de adaptar la división en el direccionamiento de los registros.
 
 \subsubsection*{Un amplio banco de registros frente a una caché}
 
-\begin{table}
+\begin{table}[H]
 \centering
 \begin{tblr}{
   width = \linewidth,
@@ -127,7 +127,7 @@ Por lo general se sigue el siguiente enfoque. Cada cantidad del programa candida
 
 \subsubsection*{¿Por qué CISC?}
 
-La primera de las razones es, la simplificación de los compiladores. La labor del escritor de compiladores es generar una secuencia de instrucciones máquina para cada sentencia HLL.\@ Se existen instrucciones máquina que se parezcan a sentencias del HLL, la tarea se simplifica.
+La primera de las razones es, la simplificación de los compiladores. La labor del escritor de compiladores es generar una secuencia de instrucciones máquina para cada sentencia HLL.\@ Si existen instrucciones máquina que se parezcan a sentencias del HLL, la tarea se simplifica.
 
 La otra razón importante mencionada es la esperanza de que un CISC produzca programas más pequeños y rápido. Los programas más pequeños tienen dos ventajas. Como el programa ocupa menos memoria, hay un ahorro de este recurso, pero como la memoria hoy en día es tan barata, este aspecto no es primordial. Tiene mayor importancia el hecho de que programas más pequeños mejoren las prestaciones porque tienen menos instrucciones, lo que significa que hay que captar menos bytes de instrucciones. El segundo es que en un entorno paginado los programas más pequeños ocupan menos páginas, reduciendo los fallos de página. Sin embargo, el número de bits de memoria que ocupa, no tiene por qué ser más pequeño al tener menos instrucciones.
 

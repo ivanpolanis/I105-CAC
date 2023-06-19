@@ -7,6 +7,8 @@
 \usepackage{titling}
 \usepackage{geometry}
 \usepackage{tabularray}
+\usepackage[colorlinks=true, urlcolor=black, linkcolor=black, citecolor=black, filecolor=black]{hyperref} % Paquete para los marcadores
+
 
 \geometry{
   a4paper,
@@ -37,9 +39,16 @@
 
 \maketitle
 
+\pagenumbering{gobble}
 \newpage
+
+\pagenumbering{roman}
+
 \tableofcontents
+
 \newpage
+
+\pagenumbering{arabic}
 
 \include{01_segmentacion_instrucciones.tex}
 \include{02_soluciones_a_atascos.tex}

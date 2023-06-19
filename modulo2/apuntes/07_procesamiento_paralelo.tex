@@ -1,4 +1,4 @@
-\section{Procesamiento paralelo}
+\section{Procesamiento paralelo}\label{sec:paralel}
 
 \subsection{Organizaciones con varios procesadores}
 
@@ -37,7 +37,7 @@ El término SMP se refiere as la arquitectura hardware del computador y también
   \item El sistema está controlado por un sistema operativo integrado que proporciona la interacción entre los procesadores y sus programas a los niveles de trabajo, tarea, fichero y datos.
 \end{itemize}
 
-El sistema operativo de unn SMP planifica la distribución de procesos o hilos (\textit{threads}) entre todos los procesadores. Un SMP tiene las siguientes ventajas potenciales con respecto a una arquitectura monoprocesador:
+El sistema operativo de un SMP planifica la distribución de procesos o hilos (\textit{threads}) entre todos los procesadores. Un SMP tiene las siguientes ventajas potenciales con respecto a una arquitectura monoprocesador:
 
 \begin{itemize}
   \item \textbf{Prestaciones:} si el trabajo a realizar por un computador puede organizarse de forma que partes del mismo se puedan realizar en paralelo, entonces un sistema con varios procesadores proporcionará mejores prestaciones que uno con un solo procesador del mismo tipo.
@@ -55,7 +55,7 @@ La organización más común en los computadores personales, estaciones de traba
 \begin{itemize}
   \item \textbf{Direccionamiento:} debe ser posible distinguir los módulos del bus para determinar la fuente y el destino de los datos.
   \item \textbf{Arbitraje:} cualquier módulo de E/S puede funcionar temporalmente como un \textit{maestro}. Se proporciona un mecanismo para arbitrar entre las peticiones que compiten por el control del bus, utilizando algún tiempo de esquema de prioridad.
-  \item \textbf{Tiempo compartido:} cuando un módulo está controlando el us, los otros módulos no tienen acceso al mismo y deben, si es necesario, suspender su operación hasta que dispongan del bus.
+  \item \textbf{Tiempo compartido:} cuando un módulo está controlando el bus, los otros módulos no tienen acceso al mismo y deben, si es necesario, suspender su operación hasta que dispongan del bus.
 \end{itemize}
 
 La organización del bus presenta varias características atractivas:
@@ -68,7 +68,7 @@ La organización del bus presenta varias características atractivas:
 
 La principal desventaja de la organización de bus son las prestaciones. Todas las referencias a memoria pasan por el bus. En consecuencia, la velocidad del sistema está limitada por el tiempo de ciclo. Para mejorar las prestaciones, es deseable equipar a cada procesador con una memoria caché.
 
-El uso de cachés introduce algunas consideraciones de diseño nuevas. Puesto que cada caché local contiene una imagen de una parte de la memoria,m si se altera una palabra en una caché, en concebible que so podría invalidad una palabra en otra caché. Para evitarlo, se debe avisar a los otros procesadores de que se ha producido una actualización de memoria. Este problema se conoce como \textit{coherencia de caché}.
+El uso de cachés introduce algunas consideraciones de diseño nuevas. Puesto que cada caché local contiene una imagen de una parte de la memoria, si se altera una palabra en una caché, es concebible que eso podría invalidar una palabra en otra caché. Para evitarlo, se debe avisar a los otros procesadores de que se ha producido una actualización de memoria. Este problema se conoce como \textit{coherencia de caché}.
 
 \subsubsection{Clusters}
 
@@ -107,7 +107,7 @@ Los computadores se conectan a través de una red de área loca de alta velocida
   \caption{Arquitectura de computador de cluster}
 \end{figure}
 
-\subsubsection*{Clusters frete a sistemas SMP}
+\subsubsection*{Clusters frente a sistemas SMP}
 
 La principal ventaja de un SMP es que resulta más fácil gestionar y configurar que un cluster. El SMP está mucho más cerca del modelo de computador de un solo procesador para el que están disponibles casi todas las aplicaciones. El principal cambio que se necesita para pasar de un computador monoprocesador a un SMP se refiere al funcionamiento del planificador. Otra ventaja es que los SMP ocupan menos espacio físico y y consume menos energía.
 
@@ -145,7 +145,7 @@ En resumen, los protocolos de sondeo son utilizados para mantener la coherencia 
 
 En un SMP existe un límite práctico en el número de procesadores que pueden utilizarse. Un esquema de caché eficaz reduce el tráfico en el bus entre los procesadores y la memoria principal. La degradación de las prestaciones parece que limita el número de procesadores en una configuración SMP entre 16 y 64 procesadores.
 
-Precisamente el límite de procesadores en un SMP es uno de los motivos para el desarrollo de los clusters. Sin embargo, e un cluster cada nodo tiene su propia memoria principal privada y las aplicaciones no ven la memoria global. La coherencia se mantiene mediante software en lugar de mediante hardware.
+Precisamente el límite de procesadores en un SMP es uno de los motivos para el desarrollo de los clusters. Sin embargo, en un cluster cada nodo tiene su propia memoria principal privada y las aplicaciones no ven la memoria global. La coherencia se mantiene mediante software en lugar de mediante hardware.
 
 El objetivo de un computador NUMA es mantener una memoria transparente desde cualquier parte del sistema, al tiempo que se permiten varios nodos de multiprocesador, cada uno con su propio bus u otro sistema de interconexión interna.
 

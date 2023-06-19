@@ -1,4 +1,4 @@
-\section{Memoria}
+\section{Memoria}\label{sec:memory}
 
 \subsection{Diseño de una jerarquía de memoria básica}
 
@@ -106,7 +106,7 @@ Normalmente se utilizan dos niveles de memoria caché:
   \item \textbf{L2:} es el siguiente nivel de la jerarquía, de mayor tamaño (por lo que aprovecha mejor el principio de localidad) y por lo tanto, más lento aunque con menos fallos de capacidad.
 \end{itemize}
 
-De esta manera, cuando se produzca un fallo en el nivel 1 de la memoria, la penalización de esta fallo será menor que si sólo hubieran un nivel de caché, porque en lugar de ir a la memoria principal irá a la caché de nivel 2.
+De esta manera, cuando se produzca un fallo en el nivel 1 de la memoria, la penalización de este fallo será menor que si sólo hubieran un nivel de caché, porque en lugar de ir a la memoria principal irá a la caché de nivel 2.
 
 \subsubsection*{Política de ubicación}
 
@@ -135,13 +135,13 @@ En el caso de una caché directa, no cabe ninguna duda, puesto que cada bloque s
 \begin{itemize}
   \item \textbf{Aleatoria:} se utiliza un generador de números aleatorios para escoger el bloque que se reemplaza.
   \item \textbf{Least Recently Used (LRU):} se escoge el bloque que lleva más tiempo sin utilizarse. Asi se minimiza la probabilidad de sustituir un bloque que vaya a necesitarse en el futuro.
-  \item \textbf{First In, First out (FIFO):} se reemplaza el bloque que lleva más tiempo en la caché.
+  \item \textbf{First In, First Out (FIFO):} se reemplaza el bloque que lleva más tiempo en la caché.
   \item \textbf{Least Frequently Used (LFU):} esta política reemplaza el bloque que ha sido accedido menos veces en un período de tiempo determinado, es decir, a aquel que se accedió una menor cantidad de veces. Requiere controles de uso (hardware que lleve el conteo de cuantas veces se accedió a un dato de un bloque).
 \end{itemize}
 
 \subsubsection*{Política de escritura}
 
-Las escrituras llevan más tiempo ya que no pueden solaparse con la comparación de las etiquetas como se hace con las lecturas. En muchos casos se recupera la información de un marco determinado de caché antes de saber si el bloque que está ubicado en él es el que se está buscando. Esto sólo puede hacerse con operaciones de lectura, ya que si finalmente el bloque no es el adecuado, no se ha modificado sun contenido.
+Las escrituras llevan más tiempo ya que no pueden solaparse con la comparación de las etiquetas como se hace con las lecturas. En muchos casos se recupera la información de un marco determinado de caché antes de saber si el bloque que está ubicado en él es el que se está buscando. Esto sólo puede hacerse con operaciones de lectura, ya que si finalmente el bloque no es el adecuado, no se ha modificado su contenido.
 
 Pero una operación de escritura sólo puede hacerse si la comparación de etiquetas da como resultado que el bloque ubicado en ese marco es el que se estaba buscando; no se puede hacer trabajo en paralelo:
 
@@ -156,5 +156,5 @@ Por lo tanto suelen encontrarse dos opciones:
 
 \begin{itemize}
   \item \textbf{Write Allocate:} los fallos de escritura se comportan como los fallos de lectura, se trae el bloque que ha provocado el fallo a la memoria caché y se realiza en función de la política utilizada. Habitual con Post-Escritura.
-  \item \textbf{No-write Allocate:} cuando se produce un fallo de escritura, el bloque se modifica directamente en el siguiente nivel de la jerarquía de memoria y no se trae a la caché. Habitual con Escritura directa.
+  \item \textbf{No-Write Allocate:} cuando se produce un fallo de escritura, el bloque se modifica directamente en el siguiente nivel de la jerarquía de memoria y no se trae a la caché. Habitual con Escritura directa.
 \end{itemize}

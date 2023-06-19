@@ -1,4 +1,4 @@
-\section{Segmentación de instrucciones}
+\section{Segmentación de instrucciones}\label{sec:segmetation}
 
 En una arquitectura \textbf{RISC}\footnote{Reduced Instruction Set Computer} la mayoría de las instrucciones son del tipo registro a registro, y un ciclo de instrucción tiene las dos fases siguientes:
 
@@ -17,7 +17,7 @@ Las operaciones de carga y almacenamiento necesitan tres fases:
 
 Dada la simplicidad y regularidad de un repertorio de instrucciones RISC, el diseño de la organización en tres o cuatro etapas se realiza fácilmente. 
 
-\subsection{Segmentación en el WinMIPS64}
+\subsection{Segmentación en el MIPS64}
 
 \begin{itemize}
   \item \textbf{Búsqueda (F, Fetch)}
@@ -47,7 +47,7 @@ Dada la simplicidad y regularidad de un repertorio de instrucciones RISC, el dis
 
 \subsection{Segmentación de cauce}
 
-La segmentación de cauce (pipelining) es forma particularmente efectiva de organizar el hardware de la CPU para realizar más de una operación al mismo tiempo. 
+La segmentación de cauce (pipelining) es una forma particularmente efectiva de organizar el hardware de la CPU para realizar más de una operación al mismo tiempo. 
 
 Consiste en descomponer el proceso de ejecución de las instrucciones en fases o etapas que permitan una ejecución simultánea. Explota el paralelismo entre las instrucciones de un flujo secuencial.
 
